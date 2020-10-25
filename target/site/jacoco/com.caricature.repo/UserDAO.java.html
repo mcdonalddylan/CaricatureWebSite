@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Caricature</a> &gt; <a href="index.source.html" class="el_package">com.caricature.repo</a> &gt; <span class="el_source">UserDAO.java</span></div><h1>UserDAO.java</h1><pre class="source lang-java linenums">package com.caricature.repo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.caricature.model.User;
+import com.caricature.util.DAOConnection;
+import com.caricature.util.DAOInterface;
+
+<span class="nc" id="L16">public class UserDAO implements DAOInterface&lt;User, Integer&gt;{</span>
+
+<span class="nc" id="L18">	private static Logger log = Logger.getLogger(UserDAO.class);</span>
+	
+	@Override
+	public List&lt;User&gt; getAll() {
+		
+<span class="nc" id="L23">		List&lt;User&gt; uList = new ArrayList&lt;&gt;();</span>
+		Connection con;
+		
+		try {
+<span class="nc" id="L27">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L28">			PreparedStatement stmt = con.prepareStatement(&quot;select * from user_view&quot;);</span>
+<span class="nc" id="L29">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L31" title="All 2 branches missed.">			while(rs.next())</span>
+			{
+<span class="nc" id="L33">				User user = new User();</span>
+				
+<span class="nc" id="L35">				user.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="nc" id="L36">				user.setUsername(rs.getString(&quot;username&quot;));</span>
+<span class="nc" id="L37">				user.setPassword(rs.getString(&quot;pass&quot;));</span>
+<span class="nc" id="L38">				user.setFirstName(rs.getString(&quot;first_name&quot;));</span>
+<span class="nc" id="L39">				user.setLastName(rs.getString(&quot;last_name&quot;));</span>
+<span class="nc" id="L40">				user.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="nc" id="L41">				user.setRole(rs.getString(&quot;user_role&quot;));</span>
+				
+<span class="nc" id="L43">				uList.add(user);</span>
+<span class="nc" id="L44">			}</span>
+			
+<span class="nc" id="L46">			rs.close();</span>
+<span class="nc" id="L47">			stmt.close();</span>
+			
+<span class="nc" id="L49">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L51">			e.printStackTrace();</span>
+<span class="nc" id="L52">			uList = null;</span>
+<span class="nc" id="L53">		}</span>
+		
+<span class="nc" id="L55">		return uList;</span>
+	}
+
+	@Override
+	public User get(Integer idVal) {
+<span class="nc" id="L60">		User user = null;</span>
+		Connection con;
+		
+		try {
+<span class="nc" id="L64">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L65">			PreparedStatement stmt = con.prepareStatement(&quot;select * from user_view where user_id = ?&quot;);</span>
+			
+<span class="nc" id="L67">			stmt.setInt(1,  idVal);</span>
+			
+<span class="nc" id="L69">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L71" title="All 2 branches missed.">			while(rs.next())</span>
+			{
+<span class="nc" id="L73">				user= new User();</span>
+				
+<span class="nc" id="L75">				user.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="nc" id="L76">				user.setUsername(rs.getString(&quot;username&quot;));</span>
+<span class="nc" id="L77">				user.setPassword(rs.getString(&quot;pass&quot;));</span>
+<span class="nc" id="L78">				user.setFirstName(rs.getString(&quot;first_name&quot;));</span>
+<span class="nc" id="L79">				user.setLastName(rs.getString(&quot;last_name&quot;));</span>
+<span class="nc" id="L80">				user.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="nc" id="L81">				user.setRole(rs.getString(&quot;user_role&quot;));</span>
+			}
+			
+<span class="nc" id="L84">			rs.close();</span>
+<span class="nc" id="L85">			stmt.close();</span>
+			
+<span class="nc" id="L87">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L89">			e.printStackTrace();</span>
+<span class="nc" id="L90">			user = null;</span>
+<span class="nc" id="L91">		}</span>
+		
+<span class="nc" id="L93">		return user;</span>
+	}
+	
+	//Overload
+	public User get(String username, String password) {
+<span class="nc" id="L98">		User user = null;</span>
+		Connection con;
+		
+		try {
+<span class="nc" id="L102">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L103">			PreparedStatement stmt = con.prepareStatement(&quot;select * from user_view where username = ? and pass = ?&quot;);</span>
+			
+<span class="nc" id="L105">			stmt.setString(1, username);</span>
+<span class="nc" id="L106">			stmt.setString(2, password);</span>
+			
+<span class="nc" id="L108">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L110" title="All 2 branches missed.">			while(rs.next())</span>
+			{
+<span class="nc" id="L112">				user = new User();</span>
+				
+<span class="nc" id="L114">				user.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="nc" id="L115">				user.setUsername(rs.getString(&quot;username&quot;));</span>
+<span class="nc" id="L116">				user.setPassword(rs.getString(&quot;pass&quot;));</span>
+<span class="nc" id="L117">				user.setFirstName(rs.getString(&quot;first_name&quot;));</span>
+<span class="nc" id="L118">				user.setLastName(rs.getString(&quot;last_name&quot;));</span>
+<span class="nc" id="L119">				user.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="nc" id="L120">				user.setRole(rs.getString(&quot;user_role&quot;));</span>
+			}
+			
+<span class="nc" id="L123">			rs.close();</span>
+<span class="nc" id="L124">			stmt.close();</span>
+			
+<span class="nc" id="L126">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L128">			e.printStackTrace();</span>
+<span class="nc" id="L129">			user = null;</span>
+<span class="nc" id="L130">		}</span>
+		
+<span class="nc" id="L132">		return user;</span>
+	}
+
+	public boolean isUser(String username)
+	{
+		Connection con;
+		
+		try {
+<span class="nc" id="L140">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L141">			PreparedStatement stmt = con.prepareStatement(&quot;select * from user_view where username = ?&quot;);</span>
+			
+<span class="nc" id="L143">			stmt.setString(1, username);</span>
+
+			
+<span class="nc" id="L146">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L148" title="All 2 branches missed.">			if(rs.isBeforeFirst())</span>
+			{
+<span class="nc" id="L150">				rs.close();</span>
+<span class="nc" id="L151">				stmt.close();</span>
+<span class="nc" id="L152">				log.info(&quot;username found!&quot;);</span>
+<span class="nc" id="L153">				return true;</span>
+			}
+			else
+			{
+<span class="nc" id="L157">				rs.close();</span>
+<span class="nc" id="L158">				stmt.close();</span>
+<span class="nc" id="L159">				log.error(&quot;username not found in db&quot;);</span>
+<span class="nc" id="L160">				return false;</span>
+			}
+			
+<span class="nc" id="L163">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L165">			e.printStackTrace();</span>
+<span class="nc" id="L166">			return false;</span>
+		}
+	}
+	
+	@Override
+	public boolean create(User t) {
+		Connection con;
+		
+		try {
+<span class="nc" id="L175">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L176">			PreparedStatement stmt = con.prepareStatement(&quot;insert into users (username, pass, &quot;</span>
+					+ &quot;first_name, last_name, email, role_id) values (?,?,?,?,?,?)&quot;);
+			
+<span class="nc" id="L179">			stmt.setString(1, t.getUsername());</span>
+<span class="nc" id="L180">			stmt.setString(2, t.getPassword());</span>
+<span class="nc" id="L181">			stmt.setString(3, t.getFirstName());</span>
+<span class="nc" id="L182">			stmt.setString(4, t.getLastName());</span>
+<span class="nc" id="L183">			stmt.setString(5, t.getEmail());</span>
+<span class="nc" id="L184">			stmt.setInt(6, t.getRoleId());</span>
+			
+<span class="nc bnc" id="L186" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+			{
+<span class="nc" id="L188">				stmt.close();</span>
+<span class="nc" id="L189">				return true;//success</span>
+			}
+			else
+			{
+<span class="nc" id="L193">				stmt.close();</span>
+<span class="nc" id="L194">				return false;</span>
+			}
+<span class="nc" id="L196">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L198">			e.printStackTrace();</span>
+<span class="nc" id="L199">			return false;</span>
+		}
+		
+	}
+
+	@Override
+	public boolean delete(Integer idVal) {
+		Connection con;
+		
+		try {
+<span class="nc" id="L209">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L210">			PreparedStatement stmt = con.prepareStatement(&quot;delete from users where user_id = ?&quot;);</span>
+			
+<span class="nc" id="L212">			stmt.setInt(1, idVal);</span>
+			
+<span class="nc bnc" id="L214" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+			{
+<span class="nc" id="L216">				stmt.close();</span>
+<span class="nc" id="L217">				return true;</span>
+			}
+			else
+			{
+<span class="nc" id="L221">				stmt.close();</span>
+<span class="nc" id="L222">				return false;</span>
+			}
+<span class="nc" id="L224">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L226">			e.printStackTrace();</span>
+<span class="nc" id="L227">			return false;</span>
+		}
+	}
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -1,0 +1,135 @@
+<!-- Yoyo bro wazzup doggy dog?-->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <Title>Caricature Page</Title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/index.css" type="text/css">
+    <script src="./js/network.js" type="text/javascript"></script>
+    <script src="./js/classes.js" type="text/javascript"></script>
+    <script src="./js/login.js" type="text/javascript"></script>
+</head>
+<body>
+
+     <div class="main-bg">
+    
+<!--    <nav class="navbar navbar-default navbar-fixed-top" id="bg">
+        <form action="home" method="POST" id="user-entry">
+        <h3 style="color: #000066">DreamButts.com</h3>
+            <input type="text" name="username" placeholder="username" class="col-3 entry-nav">
+            <input type="password" name="password" placeholder="*******" class="col-3 entry-nav">
+            <input type="submit" value="LOGIN" class="col-2 login-btn">
+        </form>
+        <form action="reimburse" method="POST" id="reim-menu">
+    		  <input type="submit" value="Reimburse Menu" class="reim-menu-btn">
+    	  </form>
+    	<p id="error-msg" class="col-8"><p>
+    </nav> -->
+
+    <nav class="navbar navbar-default navbar-fixed-top" id="bg">
+    <p id="error-msg" class="col-8"><p>
+  </nav>
+    
+    <!-- gradient just below the nav bar -->
+    <div style="background-image: linear-gradient(to bottom, rgba(50, 50, 90, 1), rgba(255, 255, 255, 0));
+    height: 15px;"></div>
+
+    <div class="container">
+      <!-- Scrolling caricature images -->
+      <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel"
+      style="margin-top: 50px;">
+      <h1 style="width: 90%;margin:auto;margin-bottom: 8px;color: #441200;">Our Beautiful Clients:</h1>
+      <!--Indicators-->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-2" data-slide-to="0" style="mix-blend-mode: difference;" class="active"></li>
+        <li data-target="#carousel-example-2" data-slide-to="1" style="mix-blend-mode: difference;"></li>
+        <li data-target="#carousel-example-2" data-slide-to="2" style="mix-blend-mode: difference;"></li>
+      </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+      <div class="carousel-inner" role="listbox" style=" border: 3px solid #662200;">
+      <div class="carousel-item active">
+        <div class="view">
+          <img class="d-block w-100" src="./html/photos/guy1.jpg" alt="First slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive" style="color:white;mix-blend-mode: difference">Michael Stoopicus</h3>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view">
+          <img class="d-block w-100" src="./html/photos/guy2.jpg" alt="Second slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive" style="color:white;mix-blend-mode: difference">Shirley Floogent</h3>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view">
+          <img class="d-block w-100" src="./html/photos/guy3.jpg" alt="Third slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive" style="color: white;mix-blend-mode: difference;">Dimbus Phlargington</h3>
+        </div>
+      </div>
+    </div>
+    <!--/.Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+      <span class=" carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only" style="mix-blend-mode: difference;">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only" style="mix-blend-mode: difference;">Next</span>
+    </a>
+    <!--/.Controls-->
+  </div>
+</div>
+    
+    
+  <div class="container" style="margin-top: 10px;">
+    
+	<h1 class="apply-head">Apply below:</h1>
+  <hr id="apply-hr">
+  <form action="apply" method="POST">
+    <div class="row justify-content-center">
+      <label for="applyFile" class=" col-3 label-1">Please provide your best caricature here:</label>
+      <input type="file" name="applyFile" class="file-entry">
+    </div>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+      <label for="applyEmail" class="col-3 label-1">Please enter your email:</label>
+      <input type="email" name="applyEmail" placeholder="largestrear@but.t" class="entry">
+    </div>
+    <div class="row justify-content-center">
+      <input type="submit" value="Apply now" name="applyBtn" class="apply-btn">
+    </div>
+    
+  </form>
+  
+		
+	</div>
+	
+	<br>
+	<br>
+	</div>
+<script>
+	
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+
+</html>

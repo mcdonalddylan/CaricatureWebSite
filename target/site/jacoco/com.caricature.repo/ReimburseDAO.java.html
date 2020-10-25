@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimburseDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Caricature</a> &gt; <a href="index.source.html" class="el_package">com.caricature.repo</a> &gt; <span class="el_source">ReimburseDAO.java</span></div><h1>ReimburseDAO.java</h1><pre class="source lang-java linenums">package com.caricature.repo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.caricature.model.Reimbursement;
+import com.caricature.model.User;
+import com.caricature.util.DAOConnection;
+import com.caricature.util.DAOInterface;
+
+<span class="nc" id="L19">public class ReimburseDAO implements DAOInterface&lt;Reimbursement, Integer&gt;{</span>
+
+<span class="nc" id="L21">	private static Logger log = Logger.getLogger(ReimburseDAO.class);</span>
+
+	@Override
+	public List&lt;Reimbursement&gt; getAll() {
+<span class="nc" id="L25">		List&lt;Reimbursement&gt; rList = new ArrayList&lt;&gt;();</span>
+		Connection con;
+		
+		try {
+<span class="nc" id="L29">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L30">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view&quot;);</span>
+<span class="nc" id="L31">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L33" title="All 2 branches missed.">			while(rs.next())</span>
+			{
+<span class="nc" id="L35">				Reimbursement reim = new Reimbursement();</span>
+				
+<span class="nc" id="L37">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
+<span class="nc" id="L38">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
+<span class="nc" id="L39">				reim.setSubmitDate(rs.getTimestamp(&quot;submitted&quot;));</span>
+<span class="nc" id="L40">				reim.setResolveDate(rs.getTimestamp(&quot;resolved&quot;));</span>
+<span class="nc" id="L41">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
+<span class="nc" id="L42">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
+				
+<span class="nc" id="L44">				User tempUser = new User();</span>
+<span class="nc" id="L45">				tempUser.setId(rs.getInt(&quot;author_id&quot;));</span>
+<span class="nc" id="L46">				tempUser.setFirstName(rs.getString(&quot;author_first&quot;));</span>
+<span class="nc" id="L47">				tempUser.setLastName(rs.getString(&quot;author_last&quot;));</span>
+<span class="nc" id="L48">				reim.setAuthor(tempUser);</span>
+<span class="nc" id="L49">				tempUser.setId(rs.getInt(&quot;resolver_id&quot;));</span>
+<span class="nc" id="L50">				tempUser.setFirstName(rs.getString(&quot;resolver_first&quot;));</span>
+<span class="nc" id="L51">				tempUser.setLastName(rs.getString(&quot;resolver_last&quot;));</span>
+<span class="nc" id="L52">				reim.setResolver(tempUser);</span>
+				
+<span class="nc" id="L54">				reim.setType(rs.getString(&quot;reim_type&quot;));</span>
+<span class="nc" id="L55">				reim.setStatus(rs.getString(&quot;reim_status&quot;));</span>
+				
+				
+<span class="nc" id="L58">				rList.add(reim);</span>
+<span class="nc" id="L59">			}</span>
+			
+<span class="nc" id="L61">			rs.close();</span>
+<span class="nc" id="L62">			stmt.close();</span>
+			
+<span class="nc" id="L64">			log.info(&quot;successfully retrieved all reimburesment data&quot;);</span>
+			
+<span class="nc" id="L66">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L68">			e.printStackTrace();</span>
+<span class="nc" id="L69">			log.error(&quot;unable to retrieve reimbursement data&quot;);</span>
+<span class="nc" id="L70">			rList = null;</span>
+<span class="nc" id="L71">		}</span>
+		
+<span class="nc" id="L73">		return rList;</span>
+	}
+	
+	public List&lt;Reimbursement&gt; getAll(Integer userId) {
+<span class="nc" id="L77">		List&lt;Reimbursement&gt; rList = new ArrayList&lt;&gt;();</span>
+		Connection con;
+		
+		try {
+<span class="nc" id="L81">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L82">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view where author_id = ? order by submitted asc&quot;);</span>
+			
+<span class="nc" id="L84">			stmt.setInt(1, userId);</span>
+			
+<span class="nc" id="L86">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L88" title="All 2 branches missed.">			while(rs.next())</span>
+			{
+<span class="nc" id="L90">				Reimbursement reim = new Reimbursement();</span>
+				
+<span class="nc" id="L92">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
+<span class="nc" id="L93">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
+<span class="nc" id="L94">				reim.setSubmitDate(rs.getTimestamp(&quot;submitted&quot;));</span>
+<span class="nc" id="L95">				reim.setResolveDate(rs.getTimestamp(&quot;resolved&quot;));</span>
+<span class="nc" id="L96">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
+<span class="nc" id="L97">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
+				
+<span class="nc" id="L99">				User tempUser = new User();</span>
+<span class="nc" id="L100">				tempUser.setId(rs.getInt(&quot;author_id&quot;));</span>
+<span class="nc" id="L101">				tempUser.setFirstName(rs.getString(&quot;author_first&quot;));</span>
+<span class="nc" id="L102">				tempUser.setLastName(rs.getString(&quot;author_last&quot;));</span>
+<span class="nc" id="L103">				reim.setAuthor(tempUser);</span>
+<span class="nc" id="L104">				tempUser.setId(rs.getInt(&quot;resolver_id&quot;));</span>
+<span class="nc" id="L105">				tempUser.setFirstName(rs.getString(&quot;resolver_first&quot;));</span>
+<span class="nc" id="L106">				tempUser.setLastName(rs.getString(&quot;resolver_last&quot;));</span>
+<span class="nc" id="L107">				reim.setResolver(tempUser);</span>
+				
+<span class="nc" id="L109">				reim.setType(rs.getString(&quot;reim_type&quot;));</span>
+<span class="nc" id="L110">				reim.setStatus(rs.getString(&quot;reim_status&quot;));</span>
+				
+				
+<span class="nc" id="L113">				rList.add(reim);</span>
+<span class="nc" id="L114">			}</span>
+			
+<span class="nc" id="L116">			rs.close();</span>
+<span class="nc" id="L117">			stmt.close();</span>
+			
+<span class="nc" id="L119">			log.info(&quot;successfully retrieved all reimburesment data of user: &quot; +</span>
+<span class="nc" id="L120">			rList.get(0).getAuthor().getFirstName());</span>
+			
+<span class="nc" id="L122">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L124">			e.printStackTrace();</span>
+<span class="nc" id="L125">			log.error(&quot;unable to retrieve user specific reimbursement data&quot;);</span>
+<span class="nc" id="L126">			rList = null;</span>
+<span class="nc" id="L127">		}</span>
+		
+<span class="nc" id="L129">		return rList;</span>
+	}
+
+	@Override
+	public Reimbursement get(Integer idVal) {
+<span class="nc" id="L134">		Reimbursement reim = null;</span>
+		Connection con;
+		
+		try {
+<span class="nc" id="L138">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L139">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view where author_id = ? order by submitted asc&quot;);</span>
+			
+<span class="nc" id="L141">			stmt.setInt(1, idVal);</span>
+			
+<span class="nc" id="L143">			ResultSet rs = stmt.executeQuery();</span>
+			
+<span class="nc bnc" id="L145" title="All 2 branches missed.">			while(rs.next())</span>
+			{
+<span class="nc" id="L147">				reim = new Reimbursement();</span>
+				
+<span class="nc" id="L149">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
+<span class="nc" id="L150">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
+<span class="nc" id="L151">				reim.setSubmitDate(rs.getTimestamp(&quot;submitted&quot;));</span>
+<span class="nc" id="L152">				reim.setResolveDate(rs.getTimestamp(&quot;resolved&quot;));</span>
+<span class="nc" id="L153">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
+<span class="nc" id="L154">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
+				
+<span class="nc" id="L156">				User tempUser = new User();</span>
+<span class="nc" id="L157">				tempUser.setId(rs.getInt(&quot;author_id&quot;));</span>
+<span class="nc" id="L158">				tempUser.setFirstName(rs.getString(&quot;author_first&quot;));</span>
+<span class="nc" id="L159">				tempUser.setLastName(rs.getString(&quot;author_last&quot;));</span>
+<span class="nc" id="L160">				reim.setAuthor(tempUser);</span>
+<span class="nc" id="L161">				tempUser.setId(rs.getInt(&quot;resolver_id&quot;));</span>
+<span class="nc" id="L162">				tempUser.setFirstName(rs.getString(&quot;resolver_first&quot;));</span>
+<span class="nc" id="L163">				tempUser.setLastName(rs.getString(&quot;resolver_last&quot;));</span>
+<span class="nc" id="L164">				reim.setResolver(tempUser);</span>
+				
+<span class="nc" id="L166">				reim.setType(rs.getString(&quot;reim_type&quot;));</span>
+<span class="nc" id="L167">				reim.setStatus(rs.getString(&quot;reim_status&quot;));</span>
+<span class="nc" id="L168">			}</span>
+			
+<span class="nc" id="L170">			rs.close();</span>
+<span class="nc" id="L171">			stmt.close();</span>
+			
+<span class="nc" id="L173">			log.info(&quot;successfully retrieved reimburesment data of user: &quot; +</span>
+<span class="nc" id="L174">			reim.getAuthor().getFirstName());</span>
+			
+<span class="nc" id="L176">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L178">			e.printStackTrace();</span>
+<span class="nc" id="L179">			log.error(&quot;unable to retrieve user specific reimbursement data&quot;);</span>
+<span class="nc" id="L180">			reim = null;</span>
+<span class="nc" id="L181">		}</span>
+		
+<span class="nc" id="L183">		return reim;</span>
+	}
+
+	@Override
+	public boolean create(Reimbursement t) {
+		Connection con;
+		
+		try {
+<span class="nc" id="L191">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L192">			PreparedStatement stmt = con.prepareStatement(&quot;insert into reimbursement (amount,&quot;</span>
+					+ &quot;submitted, resolved, description, recipt, author, resolver, status_id, type_id) &quot;
+					+ &quot;values (?,?,?,?,?,?,?,?,?)&quot;);
+			
+<span class="nc" id="L196">			stmt.setInt(1, (int)t.getAmount());</span>
+<span class="nc" id="L197">			stmt.setTimestamp(2, t.getSubmitDate());</span>
+<span class="nc" id="L198">			stmt.setTimestamp(3, t.getResolveDate());</span>
+<span class="nc" id="L199">			stmt.setString(4, t.getDescription());</span>
+<span class="nc" id="L200">			stmt.setBytes(5, t.getRecipt());</span>
+<span class="nc" id="L201">			stmt.setInt(6, t.getAuthorId());</span>
+<span class="nc" id="L202">			stmt.setInt(7, t.getResolverId());</span>
+<span class="nc" id="L203">			stmt.setInt(8, t.getStatusId());</span>
+<span class="nc" id="L204">			stmt.setInt(9, t.getTypeId());</span>
+			
+<span class="nc bnc" id="L206" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+			{
+<span class="nc" id="L208">				stmt.close();</span>
+<span class="nc" id="L209">				log.info(&quot;reimbursement successfully created!&quot;);</span>
+<span class="nc" id="L210">				return true;//success</span>
+			}
+			else
+			{
+<span class="nc" id="L214">				stmt.close();</span>
+<span class="nc" id="L215">				log.error(&quot;reimbursement was not created&quot;);</span>
+<span class="nc" id="L216">				return false;</span>
+			}
+<span class="nc" id="L218">		} catch (SQLException e) {</span>
+<span class="nc" id="L219">			log.error(&quot;reimbursement was not created. SQL error&quot;);</span>
+<span class="nc" id="L220">			e.printStackTrace();</span>
+<span class="nc" id="L221">			return false;</span>
+		}
+	}
+	
+	public boolean update(Integer reimId, Integer resolverId, Integer statusId) {
+		Connection con;
+		
+		try {
+<span class="nc" id="L229">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L230">			PreparedStatement stmt = con.prepareStatement(&quot;update reimbursement set resolved = ?, &quot;</span>
+					+ &quot;resolver = ?, status_id = ? where reim_id = ?&quot;);
+			
+<span class="nc" id="L233">			stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));</span>
+<span class="nc" id="L234">			stmt.setInt(2, resolverId);</span>
+<span class="nc" id="L235">			stmt.setInt(3, statusId);</span>
+<span class="nc" id="L236">			stmt.setInt(4, reimId);</span>
+
+			
+<span class="nc bnc" id="L239" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+			{
+<span class="nc" id="L241">				stmt.close();</span>
+<span class="nc" id="L242">				log.info(&quot;reimbursement successfully created!&quot;);</span>
+<span class="nc" id="L243">				return true;//success</span>
+			}
+			else
+			{
+<span class="nc" id="L247">				stmt.close();</span>
+<span class="nc" id="L248">				log.error(&quot;reimbursement was not created&quot;);</span>
+<span class="nc" id="L249">				return false;</span>
+			}
+<span class="nc" id="L251">		} catch (SQLException e) {</span>
+<span class="nc" id="L252">			log.error(&quot;reimbursement was not created. SQL error&quot;);</span>
+<span class="nc" id="L253">			e.printStackTrace();</span>
+<span class="nc" id="L254">			return false;</span>
+		}
+	}
+
+	@Override
+	public boolean delete(Integer idVal) {
+		Connection con;
+		
+		try {
+<span class="nc" id="L263">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L264">			PreparedStatement stmt = con.prepareStatement(&quot;delete from reimbursement where reim_id = ?&quot;);</span>
+			
+<span class="nc" id="L266">			stmt.setInt(1, idVal);</span>
+			
+<span class="nc bnc" id="L268" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+			{
+<span class="nc" id="L270">				stmt.close();</span>
+<span class="nc" id="L271">				log.info(&quot;reimbursement successfully DELETED!&quot;);</span>
+<span class="nc" id="L272">				return true;</span>
+			}
+			else
+			{
+<span class="nc" id="L276">				stmt.close();</span>
+<span class="nc" id="L277">				log.error(&quot;reimbursement was unable to be deleted&quot;);</span>
+<span class="nc" id="L278">				return false;</span>
+			}
+<span class="nc" id="L280">		} catch (SQLException e) {</span>
+<span class="nc" id="L281">			log.error(&quot;reimbursement was unable to be deleted. SQL error&quot;);</span>
+<span class="nc" id="L282">			e.printStackTrace();</span>
+<span class="nc" id="L283">			return false;</span>
+		}
+	}
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
