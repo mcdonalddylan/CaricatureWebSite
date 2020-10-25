@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>Caricature</display-name>
+  <welcome-file-list>
+    <welcome-file>html/index.html</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>login</servlet-name>
+    <servlet-class>com.caricature.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>com.caricature.servlet.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>reimburse</servlet-name>
+    <servlet-class>com.caricature.servlet.ReimServlet</servlet-class>
+  </servlet>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/html/error.html</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.sql.SQLException</exception-type>
+    <location>/html/error.html</location>
+  </error-page>
+  <servlet>
+    <description></description>
+    <display-name>ApplyReimServlet</display-name>
+    <servlet-name>ApplyReimServlet</servlet-name>
+    <servlet-class>com.caricature.servlet.ApplyReimServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplyReimServlet</servlet-name>
+    <url-pattern>/ApplyReimServlet</url-pattern>
+  </servlet-mapping>
+</web-app>

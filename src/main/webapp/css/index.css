@@ -1,0 +1,196 @@
+/*
+Contains styling for home page
+*/
+nav#bg
+{
+	background-image: linear-gradient(182deg, #ffcc66, #ee9911);
+}
+
+p#error-msg
+{
+	font-weight: bold;
+	color: #000033;
+}
+
+nav .entry-nav
+{
+	background-image: linear-gradient(180deg, #ccccff, #ffffff);
+	border: 2px solid #000066;
+	border-radius: 4px;
+	height: 40px;
+}
+
+nav .login-btn
+{
+	position:relative;
+	left:0px;
+	top:0px;
+	box-shadow: 5px 5px 8px rgba(0,0,10,0.5);
+	background-image: linear-gradient(172deg, #4499cc, #12679a);
+    border: 2px solid #000066;
+    color:#fff;
+    text-shadow: 1px 1px #000;
+    border-radius: 10px;
+    padding:6px 15px 6px 15px;
+    transition: 0.2s;
+}
+
+nav .login-btn:hover
+{
+	transition: 0.2s;
+	left:2px;
+	top:2px;
+	box-shadow: 3px 3px 5px rgba(0,0,10,0.8);
+	background-image: linear-gradient(172deg, #4499cc, #4499cc);
+	border-radius: 0px;
+}
+
+nav .reim-menu-btn
+{
+	position:relative;
+	left:0px;
+	top:0px;
+	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
+	background-image: linear-gradient(172deg, #cd9944, #aa6611);
+    border: 2px solid #662200;
+    color:#edefff;
+    text-shadow: 1px 1px #000;
+    border-radius: 10px;
+    padding:10px;
+    transition: 0.3s;
+}
+
+nav .reim-menu-btn:hover
+{
+	transition: 0.3s;
+	left:2px;
+	top:2px;
+	box-shadow: 3px 3px 8px rgba(10,5,0,0.8);
+	background-image: linear-gradient(172deg, #cd9944, #cd9944);
+	border-radius: 0px;
+}
+
+nav#logout-div
+{
+	height: 39px;
+}
+
+nav .welc-msg
+{
+	font-size: medium;
+	color: #441100;
+}
+
+.carousel-indicators
+{
+	color: white;
+ 	mix-blend-mode: difference;
+}
+
+.carousel-control-prev
+{
+	/*color: #e06f37;*/
+	color: white;
+	mix-blend-mode: difference;
+}
+
+.carousel-control-next
+{
+	/*color: #e06f37;*/
+	color: white;
+	mix-blend-mode: difference;
+}
+
+/* Background for most of the page */
+div.main-bg
+{
+	background-image: linear-gradient(120deg, #fff, #ddefff, #fff);
+}
+
+h1 .apply-head
+{
+	margin-top: 25px;
+	text-align: center;
+	color: #441200;
+}
+
+hr#apply-hr
+{
+	border: 1px dotted #441200;
+}
+
+div .entry
+{
+	margin-top: 10px;
+	background-image: linear-gradient(180deg, #ffeedd, #ffffee);
+	border: 2px solid #662200;
+	height: 40px;
+	border-radius: 4px;
+}
+
+.label-1
+{
+	color: #220100;
+}
+
+.file-entry::-webkit-file-upload-button
+{
+	visibility: hidden;
+}
+
+.file-entry
+{
+	position:relative;
+	left:0px;
+	top:0px;
+	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
+	margin-top: 10px;
+	content: 'Upload a photo here';
+	display:inline-block;
+	background-image: linear-gradient(172deg, #ee7844, #bb5622);
+	border: 2px solid #662200;
+	outline: none;
+	color:#fff;
+	text-shadow: 1px 1px #000;
+    border-radius: 10px;
+    padding:10px;
+    white-space: nowrap;
+  	-webkit-user-select: none;
+  	transition: 0.3s;
+}
+
+.file-entry:hover
+{
+	transition: 0.3s;
+	left:2px;
+	top:2px;
+	box-shadow: 3px 3px 5px rgba(10,5,0,0.8);
+	background-image: linear-gradient(172deg, #ee7844, #ee7844);
+	border-radius: 0px;
+}
+
+body .apply-btn
+{
+	position:relative;
+	left:0px;
+	top:0px;
+	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
+	margin-top: 10px;
+	background-image: linear-gradient(172deg, #ee7844, #bb5622);
+    border: 2px solid #662200;
+    color:#edefff;
+    text-shadow: 1px 1px #000;
+    border-radius: 10px;
+    padding:6px;
+    transition: 0.3s;
+}
+
+body .apply-btn:hover
+{
+	transition: 0.3s;
+	left:2px;
+	top:2px;
+	box-shadow: 3px 3px 5px rgba(10,5,0,0.8);
+	background-image: linear-gradient(172deg, #ee7844, #ee7844);
+	border-radius: 0px;
+}
