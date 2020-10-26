@@ -23,10 +23,9 @@ public class Reimbursement {
 		super();
 	}
 
-	public Reimbursement(int id, float amount, Timestamp submitDate, Timestamp resolveDate, String description,
+	public Reimbursement(float amount, Timestamp submitDate, Timestamp resolveDate, String description,
 			byte[] recipt, int authorId, int resolverId, int statusId, int typeId) {
 		super();
-		this.id = id;
 		this.amount = amount;
 		this.submitDate = submitDate;
 		this.resolveDate = resolveDate;

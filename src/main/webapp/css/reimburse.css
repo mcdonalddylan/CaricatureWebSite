@@ -174,3 +174,65 @@ body .apply-btn:hover
 	background-image: linear-gradient(172deg, #ee7844, #ee7844);
 	border-radius: 0px;
 }
+
+/* Table CSS */
+body .approve-btn
+{
+	position:relative;
+	left:0px;
+	top:-4px;
+	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
+	background-image: linear-gradient(172deg, #28bd41, #1ba539);
+    border: 2px solid #05300b;
+    color:#edefff;
+    text-shadow: 1px 1px #000;
+    border-radius: 10px;
+	padding:4px;
+	margin-top: 15px;
+    transition: 0.3s;
+}
+
+body .approve-btn:hover
+{
+	transition: 0.3s;
+	position:relative;
+	left:2px;
+	top:-2px;
+	box-shadow: 3px 3px 5px rgba(10,5,0,0.8);
+	background-image: linear-gradient(172deg, #28bd41, #28bd41);
+	border-radius: 0px;
+}
+
+body .reject-btn
+{
+	position:relative;
+	left:0px;
+	top:-4px;
+	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
+	background-image: linear-gradient(172deg, #db5b45, #a5381d);
+    border: 2px solid #461009;
+    color:#edefff;
+    text-shadow: 1px 1px #000;
+    border-radius: 10px;
+	padding:4px;
+	margin-top: 15px;
+    transition: 0.3s;
+}
+
+body .reject-btn:hover
+{
+	transition: 0.3s;
+	position:relative;
+	left:2px;
+	top:-2px;
+	box-shadow: 3px 3px 5px rgba(10,5,0,0.8);
+	background-image: linear-gradient(172deg, #db5b45, #db5b45);
+	border-radius: 0px;
+}
+
+th
+{
+	color:#edefff;
+	background-image: linear-gradient(180deg, #2779d6, #259dff);
+	text-shadow: 1px 1px #000;
+}

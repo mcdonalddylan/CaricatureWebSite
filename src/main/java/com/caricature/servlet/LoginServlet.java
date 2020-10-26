@@ -92,6 +92,8 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("lastName", null);
 					session.setAttribute("firstName", null);
 					session.setAttribute("userRole", null);
+					
+					req.getRequestDispatcher("html/index.html").forward(req, resp);
 				}
 			}
 			else
@@ -104,6 +106,8 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("lastName", null);
 				session.setAttribute("firstName", null);
 				session.setAttribute("userRole", null);
+				
+				req.getRequestDispatcher("html/index.html").forward(req, resp);
 			}
 		}
 		else
@@ -116,6 +120,8 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("lastName", null);
 			session.setAttribute("firstName", null);
 			session.setAttribute("userRole", null);
+			
+			req.getRequestDispatcher("html/index.html").forward(req, resp);
 		}
 		
 	}

@@ -20,7 +20,7 @@ async function toggleApply()
         isApply = true;
 
         const applyForm = document.createElement("form");
-        applyForm.action = "reimburse.html";
+        applyForm.action = "applyReim";
         applyForm.id = "apply-form";
         applyForm.method = "POST";
 
@@ -125,7 +125,7 @@ async function toggleView()
 
         const viewTable = document.createElement("table");
         viewTable.id = "reim-table";
-        viewTable.className = "table table-dark";
+        viewTable.className = "table";
         const tableHead = document.createElement("thead");
         tableHead.className = "reim-head";
 
@@ -138,25 +138,30 @@ async function toggleView()
         const th1 = document.createElement("th");
         th1.textContent = "Amount:";
         const th2 = document.createElement("th");
-        th2.textContent = "Status:";
+        th2.textContent = "Type:";
         const th3 = document.createElement("th");
-        th3.textContent = "Description:";
+        th3.textContent = "Status:";
         const th4 = document.createElement("th");
-        th4.textContent = "Time Submitted:";
+        th4.textContent = "Description:";
         const th5 = document.createElement("th");
-        th5.textContent = "Time Resolved:"
+        th5.textContent = "Time Submitted:";
         const th6 = document.createElement("th");
-        th6.textContent = "Author:"
+        th6.textContent = "Time Resolved:"
         const th7 = document.createElement("th");
-        th7.textContent = "Resolver:"
+        th7.textContent = "Author:"
         const th8 = document.createElement("th");
-        th8.textContent = "Reject:"
+        th8.textContent = "Resolver:"
         const th9 = document.createElement("th");
-        th9.textContent = "Accept:"
+        th9.textContent = "Reject:"
+        const th10 = document.createElement("th");
+        th10.textContent = "Approve:"
         tableHead.append(thr);
-        thr.append(th1,th2,th3,th4,th5,th6,th7,th8,th9);
+        thr.append(th1,th2,th3,th4,th5,th6,th7,th8,th9,th10);
 
-        //get reimbursement data (ajax)
+        LoadTable();
+
+        function LoadTable()
+        {
         asyncFetch("http://localhost:8080/Caricature/allReim.json", function(reimbursements)
         {
             const tableBod = document.createElement("tbody");
@@ -168,7 +173,9 @@ async function toggleView()
                 //create all row elements for each reimbursement request
                 const tr = document.createElement("tr");
                 const amountTd = document.createElement("td");
-                amountTd.innerText = reim.amount;
+                amountTd.innerText = "$" + reim.amount;
+                const typeTd = document.createElement("td");
+                typeTd.innerText = reim.type;
                 const statusTd = document.createElement("td");
                 statusTd.innerText = reim.status;
                 const descTd = document.createElement("td");
@@ -183,24 +190,45 @@ async function toggleView()
                 resolverTd.innerText = reim.resolver.firstName + reim.resolver.lastName;
                 const rejBtnTd = document.createElement("td");
                 const rejBtn = document.createElement("button");
-                rejBtn.onclick = Rejected(reim.id);
                 rejBtn.textContent = "Reject";
+                rejBtn.className = "reject-btn";
                 rejBtnTd.append(rejBtn);
+                rejBtn.onclick = async function ()
+                {
+                    console.log("reim id: " + reim.id);
+                    const fetched = await fetch("http://localhost:8080/Caricature/rejReim.json?id=" + reim.id,
+                    {method: 'post'});
+                    const json = await fetched.text();
+                    console.log(json);
+                    tableBod.innerHTML = "";
+                    LoadTable();
+                };
+
                 const appBtnTd = document.createElement("td");
                 const appBtn = document.createElement("button");
-                appBtn.onclick = Approved(reim.id);
-                appBtn.textContent = "Approved";
+                appBtn.textContent = "Approve";
+                appBtn.className = "approve-btn";
                 appBtnTd.append(appBtn);
+                appBtn.onclick = async function ()
+                {
+                    console.log("reim id: " + reim.id);
+                    const fetched = await fetch("http://localhost:8080/Caricature/appReim.json?id=" + reim.id,
+                    {method: 'post'});
+                    const json = await fetched.text();
+                    console.log(json);
+                    tableBod.innerHTML = "";
+                    LoadTable();
+                };
 
                 //change row color based on whether the reim. request was 
                 // accepted or rejected
                 if(reim.status == "Denied")
                 {
-                    tr.style = "background-color: #440000";
+                    tr.style = "background-color: rgba(160,30,0,0.2);";
                 }
                 else if(reim.status == "Approved")
                 {
-                    tr.style = "background-color: #004400";
+                    tr.style = "background-color: rgba(0,100,0,0.2);";
                 }
                 tableBod.append(tr);
 
@@ -209,37 +237,22 @@ async function toggleView()
                 //add the approve and reject buttons if pending
                 if(reim.status == "Pending")
                 {
-                    tr.append(amountTd,statusTd,descTd,submitTd,resolvedTd,
+                    tr.append(amountTd,typeTd,statusTd,descTd,submitTd,resolvedTd,
                         authorTd,resolverTd,rejBtnTd,appBtnTd);
                 }
                 //don't add the approve and reject buttons
                 else
                 {
-                    tr.append(amountTd,statusTd,descTd,submitTd,resolvedTd,
-                        authorTd,resolverTd);
+                    rejBtnTd.removeChild(rejBtn);
+                    appBtnTd.removeChild(appBtn);
+                    tr.append(amountTd,typeTd,statusTd,descTd,submitTd,resolvedTd,
+                        authorTd,resolverTd,rejBtnTd,appBtnTd);
                 }
                 
                 
             }
         });
+        }
         
-
-        
-    }
-    
-    function Approved(reimId)
-    {
-        console.log(reimId);
-        //approve the reimbursement
-
-        //then re-call the toggleView function to refresh 
-    }
-
-    function Rejected(reimId)
-    {
-        console.log(reimId);
-        //reject the reimbursement
-
-        //then re-call the toggleView function to refresh 
     }
 }

@@ -143,6 +143,7 @@ div .entry
 	position:relative;
 	left:0px;
 	top:0px;
+	overflow: hidden;
 	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
 	margin-top: 10px;
 	content: 'Upload a photo here';

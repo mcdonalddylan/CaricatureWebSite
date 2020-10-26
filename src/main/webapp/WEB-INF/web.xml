@@ -13,6 +13,10 @@
     <servlet-class>com.caricature.servlet.LogoutServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>applyReim</servlet-name>
+    <servlet-class>com.caricature.servlet.ApplyReimServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>reimburse</servlet-name>
     <servlet-class>com.caricature.servlet.ReimServlet</servlet-class>
   </servlet>

@@ -85,7 +85,7 @@ public class ServletDataController {
 		else
 		{
 			List<Reimbursement> rList = new ArrayList<>();
-			Reimbursement tempReim = new Reimbursement(0,0,null,null,null,null,0,0,0,0);
+			Reimbursement tempReim = new Reimbursement(0,null,null,null,null,0,0,0,0);
 			rList.add(tempReim);
 			try {
 				resp.getWriter().println(new ObjectMapper().writeValueAsString(rList));
@@ -105,5 +105,33 @@ public class ServletDataController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	public void rejectReim(HttpServletResponse resp, HttpServletRequest req)
+	{
+		HttpSession session = req.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		System.out.println("resolver id in session: " + userId);
+		
+		String reimString = req.getParameter("id");
+		int reimId = Integer.parseInt(reimString);
+		System.out.println("reim reject id: " + reimId);
+		
+		rDAO.update(reimId, userId, 2); //2 is the status id for rejection
+		
+	}
+	
+	public void approveReim(HttpServletResponse resp, HttpServletRequest req)
+	{
+		HttpSession session = req.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		System.out.println("resolver id in session: " + userId);
+		
+		String reimString = req.getParameter("id");
+		int reimId = Integer.parseInt(reimString);
+		System.out.println("reim approved id: " + reimId);
+		
+		rDAO.update(reimId, userId, 1); //1 is the status id for approval
+		
+	}
 }

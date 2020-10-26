@@ -43,7 +43,7 @@ public class ReimServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println(req.getSession().getAttribute("userRole"));
+		System.out.println(req.getSession().getAttribute("userRole").toString());
 		if(req.getSession().getAttribute("userRole").equals("Employee"))
 		{
 			req.getRequestDispatcher("html/reimburseEmp.html").forward(req, resp);
@@ -56,6 +56,11 @@ public class ReimServlet extends HttpServlet {
 		{
 			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
 		}
+		else
+		{
+			req.getRequestDispatcher("./").forward(req, resp);
+		}
+		
 	}
 
 }

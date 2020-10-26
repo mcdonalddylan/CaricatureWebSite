@@ -46,10 +46,11 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				tempUser.setFirstName(rs.getString("author_first"));
 				tempUser.setLastName(rs.getString("author_last"));
 				reim.setAuthor(tempUser);
-				tempUser.setId(rs.getInt("resolver_id"));
-				tempUser.setFirstName(rs.getString("resolver_first"));
-				tempUser.setLastName(rs.getString("resolver_last"));
-				reim.setResolver(tempUser);
+				User tempUser2 = new User();
+				tempUser2.setId(rs.getInt("resolver_id"));
+				tempUser2.setFirstName(rs.getString("resolver_first"));
+				tempUser2.setLastName(rs.getString("resolver_last"));
+				reim.setResolver(tempUser2);
 				
 				reim.setType(rs.getString("reim_type"));
 				reim.setStatus(rs.getString("reim_status"));
@@ -79,7 +80,7 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 		
 		try {
 			con = DAOConnection.getInstance().getConnection();
-			PreparedStatement stmt = con.prepareStatement("select * from reim_view where author_id = ? order by submitted asc");
+			PreparedStatement stmt = con.prepareStatement("select * from reim_view where author_id = ? order by submitted desc");
 			
 			stmt.setInt(1, userId);
 			
@@ -101,10 +102,11 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				tempUser.setFirstName(rs.getString("author_first"));
 				tempUser.setLastName(rs.getString("author_last"));
 				reim.setAuthor(tempUser);
-				tempUser.setId(rs.getInt("resolver_id"));
-				tempUser.setFirstName(rs.getString("resolver_first"));
-				tempUser.setLastName(rs.getString("resolver_last"));
-				reim.setResolver(tempUser);
+				User tempUser2 = new User();
+				tempUser2.setId(rs.getInt("resolver_id"));
+				tempUser2.setFirstName(rs.getString("resolver_first"));
+				tempUser2.setLastName(rs.getString("resolver_last"));
+				reim.setResolver(tempUser2);
 				
 				reim.setType(rs.getString("reim_type"));
 				reim.setStatus(rs.getString("reim_status"));
@@ -158,9 +160,10 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				tempUser.setFirstName(rs.getString("author_first"));
 				tempUser.setLastName(rs.getString("author_last"));
 				reim.setAuthor(tempUser);
-				tempUser.setId(rs.getInt("resolver_id"));
-				tempUser.setFirstName(rs.getString("resolver_first"));
-				tempUser.setLastName(rs.getString("resolver_last"));
+				User tempUser2 = new User();
+				tempUser2.setId(rs.getInt("resolver_id"));
+				tempUser2.setFirstName(rs.getString("resolver_first"));
+				tempUser2.setLastName(rs.getString("resolver_last"));
 				reim.setResolver(tempUser);
 				
 				reim.setType(rs.getString("reim_type"));

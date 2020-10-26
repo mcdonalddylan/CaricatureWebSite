@@ -56,7 +56,7 @@ function LoggedIn()
     const homeLink = document.createElement("a");
     homeLink.textContent = "DreamButts.com";
     homeLink.style = "color:#000066";
-    homeLink.href = "./html/index.html";
+    homeLink.href = "./";
     h3.append(homeLink);
 
     const welMsg = document.createElement("p");
@@ -99,8 +99,11 @@ function LoggedOut()
     logForm.method = "POST";
 
     const h3 = document.createElement("h3");
-    h3.textContent = "DreamButts.com";
-    h3.style = "color:#000066";
+    const homeLink = document.createElement("a");
+    homeLink.textContent = "DreamButts.com";
+    homeLink.style = "color:#000066";
+    homeLink.href = "./";
+    h3.append(homeLink);
 
     const userTxt = document.createElement("input");
     userTxt.type = "text";

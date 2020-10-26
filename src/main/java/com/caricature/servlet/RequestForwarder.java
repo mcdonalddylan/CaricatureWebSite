@@ -20,6 +20,12 @@ public class RequestForwarder {
 		case "/Caricature/allReim.json":
 			ServletDataController.getInstance().sendAllReimData(resp);
 			break;
+		case "/Caricature/rejReim.json":
+			ServletDataController.getInstance().rejectReim(resp, req);
+			break;
+		case "/Caricature/appReim.json":
+			ServletDataController.getInstance().approveReim(resp, req);
+			break;
 		}
 	}
 }
