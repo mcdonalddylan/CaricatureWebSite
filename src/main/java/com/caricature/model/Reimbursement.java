@@ -1,13 +1,14 @@
 package com.caricature.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Reimbursement {
 
 	private int id;
 	private float amount;
-	private Timestamp submitDate;
-	private Timestamp resolveDate;
+	private LocalDateTime submitDate;
+	private LocalDateTime resolveDate;
 	private String description;
 	private byte[] recipt;
 	private User author;
@@ -23,7 +24,7 @@ public class Reimbursement {
 		super();
 	}
 
-	public Reimbursement(float amount, Timestamp submitDate, Timestamp resolveDate, String description,
+	public Reimbursement(float amount, LocalDateTime submitDate, LocalDateTime resolveDate, String description,
 			byte[] recipt, int authorId, int resolverId, int statusId, int typeId) {
 		super();
 		this.amount = amount;
@@ -53,19 +54,19 @@ public class Reimbursement {
 		this.amount = amount;
 	}
 
-	public Timestamp getSubmitDate() {
+	public LocalDateTime getSubmitDate() {
 		return submitDate;
 	}
 
-	public void setSubmitDate(Timestamp submitDate) {
+	public void setSubmitDate(LocalDateTime submitDate) {
 		this.submitDate = submitDate;
 	}
-
-	public Timestamp getResolveDate() {
+	
+	public LocalDateTime getResolveDate() {
 		return resolveDate;
 	}
 
-	public void setResolveDate(Timestamp resolveDate) {
+	public void setResolveDate(LocalDateTime resolveDate) {
 		this.resolveDate = resolveDate;
 	}
 

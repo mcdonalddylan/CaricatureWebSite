@@ -24,26 +24,6 @@ public class ReimServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    	System.out.println(req.getSession().getAttribute("userRole"));
-		if(req.getSession().getAttribute("userRole").equals("Employee"))
-		{
-			req.getRequestDispatcher("html/reimburseEmp.html").forward(req, resp);
-		}
-		else if (req.getSession().getAttribute("userRole").equals("System"))
-		{
-			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
-		}
-		else if (req.getSession().getAttribute("userRole").equals("Manager"))
-		{
-			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
-		}
-    }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		System.out.println(req.getSession().getAttribute("userRole").toString());
 		if(req.getSession().getAttribute("userRole").equals("Employee"))
 		{
 			req.getRequestDispatcher("html/reimburseEmp.html").forward(req, resp);
@@ -58,7 +38,32 @@ public class ReimServlet extends HttpServlet {
 		}
 		else
 		{
-			req.getRequestDispatcher("./").forward(req, resp);
+			req.getRequestDispatcher("html/index.html").forward(req, resp);
+		}
+    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		//System.out.println("The users role: " + req.getSession().getAttribute("userRole").toString());
+		//System.out.println("Is the user actually a manager?: " + req.getSession().getAttribute("userRole").equals("Manager"));
+		
+		if(req.getSession().getAttribute("userRole").equals("Employee"))
+		{
+			req.getRequestDispatcher("html/reimburseEmp.html").forward(req, resp);
+		}
+		else if (req.getSession().getAttribute("userRole").equals("System"))
+		{
+			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
+		}
+		else if (req.getSession().getAttribute("userRole").equals("Manager"))
+		{
+			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
+		}
+		else
+		{
+			req.getRequestDispatcher("html/index.html").forward(req, resp);
 		}
 		
 	}

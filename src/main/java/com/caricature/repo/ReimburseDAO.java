@@ -27,7 +27,7 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 		
 		try {
 			con = DAOConnection.getInstance().getConnection();
-			PreparedStatement stmt = con.prepareStatement("select * from reim_view");
+			PreparedStatement stmt = con.prepareStatement("select * from reim_view order by submitted desc");
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next())
@@ -36,8 +36,8 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				
 				reim.setId(rs.getInt("reim_id"));
 				reim.setAmount(rs.getInt("amount"));
-				reim.setSubmitDate(rs.getTimestamp("submitted"));
-				reim.setResolveDate(rs.getTimestamp("resolved"));
+				reim.setSubmitDate(rs.getObject("submitted", LocalDateTime.class));
+				reim.setResolveDate(rs.getObject("resolved", LocalDateTime.class));
 				reim.setDescription(rs.getString("description"));
 				reim.setRecipt(rs.getBytes("recipt"));
 				
@@ -92,8 +92,8 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				
 				reim.setId(rs.getInt("reim_id"));
 				reim.setAmount(rs.getInt("amount"));
-				reim.setSubmitDate(rs.getTimestamp("submitted"));
-				reim.setResolveDate(rs.getTimestamp("resolved"));
+				reim.setSubmitDate(rs.getObject("submitted", LocalDateTime.class));
+				reim.setResolveDate(rs.getObject("resolved", LocalDateTime.class));
 				reim.setDescription(rs.getString("description"));
 				reim.setRecipt(rs.getBytes("recipt"));
 				
@@ -118,8 +118,7 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 			rs.close();
 			stmt.close();
 			
-			log.info("successfully retrieved all reimburesment data of user: " +
-			rList.get(0).getAuthor().getFirstName());
+			log.info("successfully retrieved user reimburesment data");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -150,8 +149,8 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				
 				reim.setId(rs.getInt("reim_id"));
 				reim.setAmount(rs.getInt("amount"));
-				reim.setSubmitDate(rs.getTimestamp("submitted"));
-				reim.setResolveDate(rs.getTimestamp("resolved"));
+				reim.setSubmitDate(rs.getObject("submitted", LocalDateTime.class));
+				reim.setResolveDate(rs.getObject("resolved", LocalDateTime.class));
 				reim.setDescription(rs.getString("description"));
 				reim.setRecipt(rs.getBytes("recipt"));
 				
@@ -197,8 +196,15 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 					+ "values (?,?,?,?,?,?,?,?,?)");
 			
 			stmt.setInt(1, (int)t.getAmount());
-			stmt.setTimestamp(2, t.getSubmitDate());
-			stmt.setTimestamp(3, t.getResolveDate());
+			stmt.setTimestamp(2, Timestamp.valueOf(t.getSubmitDate()));
+			if(t.getResolveDate() != null)
+			{
+				stmt.setTimestamp(3, Timestamp.valueOf(t.getResolveDate()));
+			}
+			else
+			{
+				stmt.setTimestamp(3, null);
+			}
 			stmt.setString(4, t.getDescription());
 			stmt.setBytes(5, t.getRecipt());
 			stmt.setInt(6, t.getAuthorId());

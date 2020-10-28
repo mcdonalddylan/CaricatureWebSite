@@ -4,8 +4,20 @@ Contains styling for home page
 nav#bg
 {
 	background-image: linear-gradient(182deg, #ffcc66, #ee9911);
+	/*position: fixed;*/
+	width: 100%;
+	/*
+	margin-top: 0px;
+	height: 105px;
+	*/
 }
-
+/*
+#nav-grad
+{
+	position: fixed;
+	margin-top:100px;
+}
+*/
 p#error-msg
 {
 	font-weight: bold;
@@ -14,6 +26,7 @@ p#error-msg
 
 nav .entry-nav
 {
+	margin-right: 6px;
 	background-image: linear-gradient(180deg, #ccccff, #ffffff);
 	border: 2px solid #000066;
 	border-radius: 4px;
@@ -60,6 +73,42 @@ nav .reim-menu-btn
     transition: 0.3s;
 }
 
+#reim-menu
+{
+	display: inline-block;
+	position: relative;
+}
+
+#reim-notif
+{
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	padding: 5px 10px;
+	border-radius: 50%;
+	background: #FF2233;
+	color: white;
+	text-shadow: 1px 1px #000;
+	font-weight: bolder;
+	box-shadow: 2px 2px 2px rgba(10,5,0,0.2);
+	animation-name: blink;
+	animation-duration: 0.3s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+	animation-direction: alternate;
+	animation-timing-function: ease-in;
+}
+
+@keyframes blink
+{
+	from {padding: 5px 10px;
+		top: -10px;
+		right: -10px;}
+	to {padding: 8px 13px;
+		top: -13px;
+		right: -13px;}
+}
+
 nav .reim-menu-btn:hover
 {
 	transition: 0.3s;
@@ -78,7 +127,10 @@ nav#logout-div
 nav .welc-msg
 {
 	font-size: medium;
+	font-weight: bold;
 	color: #441100;
+	margin-right: 6px;
+	margin-left: 15px;
 }
 
 .carousel-indicators
@@ -105,6 +157,8 @@ nav .welc-msg
 div.main-bg
 {
 	background-image: linear-gradient(120deg, #fff, #ddefff, #fff);
+	width: 100%;
+	height: 100%;
 }
 
 h1 .apply-head

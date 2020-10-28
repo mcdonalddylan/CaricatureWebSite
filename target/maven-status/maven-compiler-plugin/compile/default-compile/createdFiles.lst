@@ -8,12 +8,10 @@ com\caricature\repo\UserDAO.class
 com\caricature\servlet\RequestForwarder.class
 com\caricature\model\ReimType.class
 com\caricature\model\UserRole.class
-com\caricature\servlet\HomeServlet.class
 com\caricature\model\Reimbursement.class
 com\caricature\controller\ReimburseController.class
 com\caricature\repo\ReimburseDAO.class
 com\caricature\util\DAOInterface.class
-com\caricature\servlet\ViewServlet.class
 com\caricature\util\DAOConnection.class
 com\caricature\servlet\LoginServlet.class
 com\caricature\servlet\ReimServlet.class

@@ -27,6 +27,7 @@ public class LogoutServlet extends HttpServlet {
 		session.setAttribute("lastName", null);
 		session.setAttribute("firstName", null);
 		session.setAttribute("userRole", null);
+		session.setAttribute("userEmail", null);
 		
 		req.getRequestDispatcher("html/index.html").forward(req, resp);
 	}
@@ -43,6 +44,7 @@ public class LogoutServlet extends HttpServlet {
 		session.setAttribute("lastName", null);
 		session.setAttribute("firstName", null);
 		session.setAttribute("userRole", null);
+		session.setAttribute("userEmail", null);
 		
 		req.getRequestDispatcher("html/index.html").forward(req, resp);
 	}

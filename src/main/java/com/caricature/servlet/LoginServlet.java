@@ -71,6 +71,7 @@ public class LoginServlet extends HttpServlet {
 					//ServletDataController.getInstance().sendUserData(resp);
 					HttpSession session = req.getSession();
 					session.setAttribute("userId", user.getId());
+					session.setAttribute("userEmail", user.getEmail());
 					session.setAttribute("username", username);
 					session.setAttribute("lastName", user.getLastName());
 					session.setAttribute("firstName", user.getFirstName());
@@ -92,6 +93,7 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("lastName", null);
 					session.setAttribute("firstName", null);
 					session.setAttribute("userRole", null);
+					session.setAttribute("userEmail", null);
 					
 					req.getRequestDispatcher("html/index.html").forward(req, resp);
 				}
@@ -106,6 +108,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("lastName", null);
 				session.setAttribute("firstName", null);
 				session.setAttribute("userRole", null);
+				session.setAttribute("userEmail", null);
 				
 				req.getRequestDispatcher("html/index.html").forward(req, resp);
 			}
@@ -120,6 +123,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("lastName", null);
 			session.setAttribute("firstName", null);
 			session.setAttribute("userRole", null);
+			session.setAttribute("userEmail", null);
 			
 			req.getRequestDispatcher("html/index.html").forward(req, resp);
 		}

@@ -2,6 +2,7 @@ package com.caricature.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,14 +29,13 @@ public class ApplyReimServlet extends HttpServlet {
 		
 		String desc = req.getParameter("reim-desc");
 		float amount = Integer.parseInt(req.getParameter("amount"));
-		Timestamp now = new Timestamp(System.currentTimeMillis());
 		
 		HttpSession session = req.getSession();
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Reimbursement reim = new Reimbursement();
 		reim.setAmount(amount);
-		reim.setSubmitDate(now);
+		reim.setSubmitDate(LocalDateTime.now());
 		reim.setDescription(desc);
 		reim.setAuthorId(userId);
 		reim.setResolverId(11);  //this is the temporary "null" user id in the db
@@ -43,7 +43,8 @@ public class ApplyReimServlet extends HttpServlet {
 		reim.setTypeId(typeId);
 		
 		rDAO.create(reim);
-		req.getRequestDispatcher("./reimburse").forward(req, resp);
+		//req.getRequestDispatcher("./reimburse").forward(req, resp);
+		resp.sendRedirect("./reimburse");
 	}
 	
 	@Override

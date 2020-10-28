@@ -10,17 +10,24 @@ import com.caricature.controller.ServletDataController;
 <span class="nc" id="L10">public class RequestForwarder {</span>
 
 	public void data(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-<span class="nc bnc" id="L13" title="All 14 branches missed.">		switch(req.getRequestURI()) {</span>
+		
+<span class="nc bnc" id="L14" title="All 22 branches missed.">		switch(req.getRequestURI()) {</span>
 		case &quot;/Caricature/user.json&quot;:
-<span class="nc" id="L15">			ServletDataController.getInstance().sendUserData(resp, req);</span>
-<span class="nc" id="L16">			break;</span>
+<span class="nc" id="L16">			ServletDataController.getInstance().sendUserData(resp, req);</span>
+<span class="nc" id="L17">			break;</span>
 		case &quot;/Caricature/userReim.json&quot;:
-<span class="nc" id="L18">			ServletDataController.getInstance().sendUserReimData(resp, req);</span>
-<span class="nc" id="L19">			break;</span>
+<span class="nc" id="L19">			ServletDataController.getInstance().sendUserReimData(resp, req);</span>
+<span class="nc" id="L20">			break;</span>
 		case &quot;/Caricature/allReim.json&quot;:
-<span class="nc" id="L21">			ServletDataController.getInstance().sendAllReimData(resp);</span>
+<span class="nc" id="L22">			ServletDataController.getInstance().sendAllReimData(resp);</span>
+<span class="nc" id="L23">			break;</span>
+		case &quot;/Caricature/rejReim.json&quot;:
+<span class="nc" id="L25">			ServletDataController.getInstance().rejectReim(resp, req);</span>
+<span class="nc" id="L26">			break;</span>
+		case &quot;/Caricature/appReim.json&quot;:
+<span class="nc" id="L28">			ServletDataController.getInstance().approveReim(resp, req);</span>
 			break;
 		}
-<span class="nc" id="L24">	}</span>
+<span class="nc" id="L31">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

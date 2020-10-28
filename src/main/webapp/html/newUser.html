@@ -10,16 +10,14 @@
     <link rel="stylesheet" href="./css/index.css" type="text/css">
     <script src="./js/network.js" type="text/javascript"></script>
     <script src="./js/classes.js" type="text/javascript"></script>
-    <script src="./js/newUser.js" type="text/javascript"></script>
+    <script src="./js/newUser.js" type="text/javascript" defer></script>
 </head>
 <body>
     <div class="main-bg">
         <nav class="navbar navbar-default navbar-fixed-top" id="bg">
-            <h3 style="color: #000066">DreamButts.com</h3>
+            <a href="./"><h3 style="color: #000066">DreamButts.com</h3></a>
             <br>
             <br>
-            <br>
-            <p id="error-msg" class="col-8"><p>
         </nav>
     
        <!-- gradient just below the nav bar -->
@@ -27,36 +25,38 @@
         height: 15px;"></div>
 
         <div class="container" style="margin-top: 50px;">
-            <form action="createUser" method="POST">
+            <form action="createUser" method="POST" id="create">
                 <h3 class="apply-head">Enter new user information below:</h3>
                 <hr class="apply-hr">
                 <div class="row justify-content-center" style="margin-top: 15px;">
-                    <label for="username" class="col-4">
+                    <label for="username" class="col-3">
                         Please enter a username:</label>
-                    <input class="col-4 entry" type="text" name="user-entry" placeholder="New Username">
+                    <input class="col-4 entry" type="text" name="user-entry" placeholder="New Username" id="user-entry">
                 </div>
                 <div class="row justify-content-center" style="margin-top: 15px;">
-                    <label for="pass-entry" class="col-4">
+                    <label for="pass-entry" class="col-3">
                         Please enter a password:</label>
-                    <input class="col-4 entry" type="password" name="pass-entry" placeholder="********">
+                    <input class="col-4 entry" type="password" name="pass-entry" placeholder="****" onclick="newPassBox()" id="pass-entry">
+                </div>
+                <div class="row justify-content-center" id="pass-div2">
                 </div>
                 <div class="row justify-content-center" style="margin-top: 15px;">
-                    <label for="first-entry" class="col-4">
+                    <label for="first-entry" class="col-3">
                         Please enter your first name:</label>
                     <input class="col-4 entry" type="text" name="first-entry" placeholder="First Name">
                 </div>
                 <div class="row justify-content-center" style="margin-top: 15px;">
-                    <label for="last-entry" class="col-4">
+                    <label for="last-entry" class="col-3">
                         Please enter your last name:</label>
                     <input class="col-4 entry" type="text" name="last-entry" placeholder="Last Name">
                 </div>
                 <div class="row justify-content-center" style="margin-top: 15px;">
-                    <label for="email-entry" class="col-4">
+                    <label for="email-entry" class="col-3">
                         Please enter your email:</label>
-                    <input class="col-4 entry" type="text" name="email-entry" placeholder="hey@hello.hi">
+                    <input class="col-4 entry" type="text" name="email-entry" placeholder="hey@hello.hi" id="email-entry">
                 </div>
                 <div class="row justify-content-center" style="margin-top: 25px;">
-                    <input class="col-3 apply-btn" type="submit" value="CREATE">
+                    <input type="submit" class="col-3 apply-btn" value="CREATE"/>
                 </div>
             </form>
             
@@ -64,7 +64,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -16,6 +16,10 @@
     <servlet-name>applyReim</servlet-name>
     <servlet-class>com.caricature.servlet.ApplyReimServlet</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>createUser</servlet-name>
+    <servlet-class>com.caricature.servlet.CreateUserServlet</servlet-class>
+  </servlet>
   <servlet>
     <servlet-name>reimburse</servlet-name>
     <servlet-class>com.caricature.servlet.ReimServlet</servlet-class>

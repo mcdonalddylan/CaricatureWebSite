@@ -186,17 +186,15 @@ async function toggleView()
         const th8 = document.createElement("th");
         th8.textContent = "Resolver:"
         const th9 = document.createElement("th");
-        th9.textContent = "Reject:"
-        const th10 = document.createElement("th");
-        th10.textContent = "Approve:"
+        th9.textContent = "Remove:"
         tableHead.append(thr);
-        thr.append(th1,th2,th3,th4,th5,th6,th7,th8,th9,th10);
+        thr.append(th1,th2,th3,th4,th5,th6,th7,th8,th9);
 
         LoadTable();
 
         function LoadTable()
         {
-        asyncFetch("http://localhost:8080/Caricature/allReim.json", function(reimbursements)
+        asyncFetch("http://localhost:8080/Caricature/userReim.json", function(reimbursements)
         {
             const tableBod = document.createElement("tbody");
             viewTable.append(tableBod);
@@ -234,28 +232,14 @@ async function toggleView()
                 authorTd.innerText = reim.author.firstName + " " + reim.author.lastName;
                 const resolverTd = document.createElement("td");
                 resolverTd.innerText = reim.resolver.firstName + " " + reim.resolver.lastName;
-                const rejBtnTd = document.createElement("td");
-                const rejBtn = document.createElement("button");
-                rejBtn.textContent = "Reject";
-                rejBtn.className = "reject-btn";
-                rejBtnTd.append(rejBtn);
-                rejBtn.onclick = async function ()
+                const remBtnTd = document.createElement("td");
+                const remBtn = document.createElement("button");
+                remBtn.textContent = "Remove";
+                remBtn.className = "remove-btn";
+                remBtnTd.append(remBtn);
+                remBtn.onclick = async function ()
                 {
-                    const fetched = await fetch("http://localhost:8080/Caricature/rejReim.json?id=" + reim.id,
-                    {method: 'post'});
-                    const json = await fetched.text();
-                    tableBod.innerHTML = "";
-                    LoadTable();
-                };
-
-                const appBtnTd = document.createElement("td");
-                const appBtn = document.createElement("button");
-                appBtn.textContent = "Approve";
-                appBtn.className = "approve-btn";
-                appBtnTd.append(appBtn);
-                appBtn.onclick = async function ()
-                {
-                    const fetched = await fetch("http://localhost:8080/Caricature/appReim.json?id=" + reim.id,
+                    const fetched = await fetch("http://localhost:8080/Caricature/remReim.json?id=" + reim.id,
                     {method: 'post'});
                     const json = await fetched.text();
                     tableBod.innerHTML = "";
@@ -276,19 +260,19 @@ async function toggleView()
 
                 console.log("reim status: " + reim.status);
                 console.log(reim.status == "Pending");
-                //add the approve and reject buttons if pending
+                //add the remove button if pending
                 if(reim.status == "Pending")
                 {
                     tr.append(amountTd,typeTd,statusTd,descTd,submitTd,resolvedTd,
-                        authorTd,resolverTd,rejBtnTd,appBtnTd);
+                        authorTd,resolverTd,remBtnTd);
                 }
-                //don't add the approve and reject buttons
+                //don't add the remove button otherwise
                 else
                 {
-                    rejBtnTd.removeChild(rejBtn);
-                    appBtnTd.removeChild(appBtn);
+                    remBtnTd.removeChild(remBtn);
+
                     tr.append(amountTd,typeTd,statusTd,descTd,submitTd,resolvedTd,
-                        authorTd,resolverTd,rejBtnTd,appBtnTd);
+                        authorTd,resolverTd,remBtnTd);
                 }  
                 }
             }

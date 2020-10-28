@@ -41,16 +41,25 @@ public class ServletDataController {
 	public void sendUserData(HttpServletResponse resp, HttpServletRequest req)
 	{
 		resp.setContentType("text/json");
+		
 		HttpSession session = req.getSession();
-		System.out.println(session.getAttribute("userId"));
-		System.out.println(session.getAttribute("username"));
-		System.out.println(session.getAttribute("firstName"));
-		System.out.println(session.getAttribute("lastName"));
+		User user = new User(0,null,null,null,null,null,0);
+		
+		if(session.getAttribute("userId") != null)
+		{
+			user.setId((Integer) session.getAttribute("userId"));
+			user.setUsername((String) session.getAttribute("username"));
+			user.setFirstName((String) session.getAttribute("firstName"));
+			user.setLastName((String) session.getAttribute("lastName"));
+			user.setEmail((String) session.getAttribute("userEmail"));
+			user.setRole((String) session.getAttribute("userRole"));
+		}
+		
 		//if a user has logged in...
 		if (session.getAttribute("userId") != null)
 		{
 			try {
-				resp.getWriter().println(new ObjectMapper().writeValueAsString(sessionUser));
+				resp.getWriter().println(new ObjectMapper().writeValueAsString(user));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -72,12 +81,13 @@ public class ServletDataController {
 	{
 		resp.setContentType("text/json");
 		HttpSession session = req.getSession();
+		int userId = (Integer)session.getAttribute("userId");
 		
-		if(session.getAttribute("userId") != null)
+		List<Reimbursement> testList = rDAO.getAll(userId);
+		if(testList.isEmpty() == false)
 		{
-			List<Reimbursement> rList = rDAO.getAll(sessionUser.getId());
 			try {
-				resp.getWriter().println(new ObjectMapper().writeValueAsString(rList));
+				resp.getWriter().println(new ObjectMapper().writeValueAsString(testList));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -132,6 +142,16 @@ public class ServletDataController {
 		System.out.println("reim approved id: " + reimId);
 		
 		rDAO.update(reimId, userId, 1); //1 is the status id for approval
+		
+	}
+	
+	public void removeReim(HttpServletResponse resp, HttpServletRequest req)
+	{
+		String reimString = req.getParameter("id");
+		int reimId = Integer.parseInt(reimString);
+		System.out.println("reim removed id: " + reimId);
+		
+		rDAO.delete(reimId);
 		
 	}
 }

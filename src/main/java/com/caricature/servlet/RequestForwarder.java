@@ -10,6 +10,7 @@ import com.caricature.controller.ServletDataController;
 public class RequestForwarder {
 
 	public void data(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
 		switch(req.getRequestURI()) {
 		case "/Caricature/user.json":
 			ServletDataController.getInstance().sendUserData(resp, req);
@@ -25,6 +26,9 @@ public class RequestForwarder {
 			break;
 		case "/Caricature/appReim.json":
 			ServletDataController.getInstance().approveReim(resp, req);
+			break;
+		case "/Caricature/remReim.json":
+			ServletDataController.getInstance().removeReim(resp, req);
 			break;
 		}
 	}

@@ -4,10 +4,23 @@ Contains styling for home page
 nav#bg
 {
 	background-image: linear-gradient(182deg, #ffcc66, #ee9911);
+	/*position: fixed;*/
+	width: 100%;
+	/*
+	margin-top: 0px;
+	height: 105px;
+	*/
 }
-
+/*
+#nav-grad
+{
+	position: fixed;
+	margin-top: 100px;
+}
+*/
 nav .entry-nav
 {
+	margin-right: 6px;
 	background-image: linear-gradient(180deg, #ccccff, #ffffff);
 	border: 2px solid #000066;
 	border-radius: 4px;
@@ -39,6 +52,15 @@ nav .login-btn:hover
 	border-radius: 0px;
 }
 
+nav .welc-msg
+{
+	font-size: medium;
+	font-weight: bold;
+	color: #441100;
+	margin-right: 6px;
+	margin-left: 15px;
+}
+
 nav .reim-menu-btn
 {
 	position:relative;
@@ -64,10 +86,49 @@ nav .reim-menu-btn:hover
 	border-radius: 0px;
 }
 
+#reim-menu
+{
+	display: inline-block;
+	position: relative;
+}
+
+#reim-notif
+{
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	padding: 5px 10px;
+	border-radius: 50%;
+	background: #FF2233;
+	color: white;
+	text-shadow: 1px 1px #000;
+	font-weight: bolder;
+	box-shadow: 2px 2px 2px rgba(10,5,0,0.2);
+	animation-name: blink;
+	animation-duration: 0.3s;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+	animation-direction: alternate;
+	animation-timing-function: ease-in;
+}
+
+@keyframes blink
+{
+	from {padding: 5px 10px;
+		top: -10px;
+		right: -10px;
+	}
+	to {padding: 8px 13px;
+		top: -13px;
+		right: -13px;}
+}
+
 /* Background for most of the page */
 div.main-bg
 {
 	background-image: linear-gradient(120deg, #fff, #ddefff, #fff);
+	width: 100%;
+	height: 100%;
 }
 
 h1 .reim-head
@@ -82,7 +143,9 @@ hr#apply-hr
 	border: 1px dotted #441200;
 }
 
-div .entry
+
+
+.entry
 {
 	background-image: linear-gradient(180deg, #ffeedd, #ffffee);
 	border: 2px solid #662200;
@@ -227,6 +290,33 @@ body .reject-btn:hover
 	top:-2px;
 	box-shadow: 3px 3px 5px rgba(10,5,0,0.8);
 	background-image: linear-gradient(172deg, #db5b45, #db5b45);
+	border-radius: 0px;
+}
+
+body .remove-btn
+{
+	position:relative;
+	left:0px;
+	top:-4px;
+	box-shadow: 5px 5px 8px rgba(10,5,0,0.5);
+	background-image: linear-gradient(172deg, #c07d71, #8d6156);
+    border: 2px solid #461009;
+    color:#edefff;
+    text-shadow: 1px 1px #000;
+    border-radius: 10px;
+	padding:4px;
+	margin-top: 15px;
+    transition: 0.3s;
+}
+
+body .remove-btn:hover
+{
+	transition: 0.3s;
+	position:relative;
+	left:2px;
+	top:-2px;
+	box-shadow: 3px 3px 5px rgba(10,5,0,0.8);
+	background-image: linear-gradient(172deg, #c07d71,#c07d71);
 	border-radius: 0px;
 }
 
