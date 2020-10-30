@@ -246,7 +246,7 @@ async function toggleView()
                     const json = await fetched.text();
                     tableBod.innerHTML = "";
                     LoadTable();
-                    location.reload(true);
+                    ShowNotifications();
                 };
 
                 const appBtnTd = document.createElement("td");
@@ -261,7 +261,7 @@ async function toggleView()
                     const json = await fetched.text();
                     tableBod.innerHTML = "";
                     LoadTable();
-                    location.reload(true);
+                    ShowNotifications();
                 };
 
                 //change row color based on whether the reim. request was 
