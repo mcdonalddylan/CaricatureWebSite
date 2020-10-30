@@ -247,6 +247,8 @@ async function toggleView()
                     tableBod.innerHTML = "";
                     ShowNotifications();
                     LoadTable();
+                    location.reload();
+                    return false;
                 };
 
                 //change row color based on whether the reim. request was 
