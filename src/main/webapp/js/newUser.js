@@ -37,35 +37,44 @@ createForm.addEventListener("submit", () => {
     {
         alert("Please enter a password.");
         event.preventDefault();
+        stopPropagation();
     }
     else if(passText1.value !== passText2.value)
     {
         alert("Passwords did not match.");
         event.preventDefault();
+        stopPropagation();
     }
     else if(passText1.value.length < 3)
     {
         alert("Please enter a password with 4 or more characters.");
         event.preventDefault();
+        stopPropagation();
     }
     if(userText.value == "")
     {
         alert("Please enter a unique username.");
         event.preventDefault();
+        stopPropagation();
     }
     if(emailText.value == "")
     {
         alert("Please enter an email.");
         event.preventDefault();
+        stopPropagation();
     }
     else if(emailText.value.includes("@") == false)
     {
         alert("Please enter a valid email address.");
         event.preventDefault();
+        stopPropagation();
     }
     else if(emailText.value.includes(".") == false)
     {
         alert("Please enter a valid email address.");
         event.preventDefault();
+        stopPropagation();
     }
+
+    alert("**User created! :D**");
 }, true);
