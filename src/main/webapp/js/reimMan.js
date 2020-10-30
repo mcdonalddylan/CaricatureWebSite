@@ -247,7 +247,6 @@ async function toggleView()
                     tableBod.innerHTML = "";
                     LoadTable();
                     location.reload();
-                    return false;
                 };
 
                 const appBtnTd = document.createElement("td");
@@ -263,7 +262,6 @@ async function toggleView()
                     tableBod.innerHTML = "";
                     LoadTable();
                     location.reload();
-                    return false;
                 };
 
                 //change row color based on whether the reim. request was 

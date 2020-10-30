@@ -243,10 +243,7 @@ async function toggleView()
                     {method: 'post'});
                     const json = await fetched.text();
                     tableBod.innerHTML = "";
-                    ShowNotifications();
                     LoadTable();
-                    location.reload();
-                    return false;
                 };
 
                 //change row color based on whether the reim. request was 
