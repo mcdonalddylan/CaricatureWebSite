@@ -147,8 +147,13 @@ asyncFetch("http://3.135.241.211:8081/Caricature/user.json", function(importUser
         {
             ShowNotifications();
         }
+        
+    }
+    
+    
+});
 
-        function ShowNotifications()
+function ShowNotifications()
         {
             asyncFetch("http://3.135.241.211:8081/Caricature/allReim.json", function(reims)
             {
@@ -169,19 +174,21 @@ asyncFetch("http://3.135.241.211:8081/Caricature/user.json", function(importUser
 
                 if(count > 0)
                 {
-                    const notifSpan = document.createElement("span");
-                    notifSpan.id = "reim-notif";
-                    notifSpan.innerText = count;
-                    reimF.append(notifSpan);
+                    const notifTest = document.getElementById("reim-notif");
+                    if(notifTest == null)
+                    {
+                        const notifSpan = document.createElement("span");
+                        notifSpan.id = "reim-notif";
+                        notifSpan.innerText = count;
+                        reimF.append(notifSpan);
+                    }
+                    else
+                    {
+                        notifTest.innerText = count;
+                    }
+                    
                 }
 
             });
         }
-        
-    }
-    
-    
-});
-
-
 
