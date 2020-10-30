@@ -148,7 +148,7 @@ asyncFetch("http://3.135.241.211:8081/Caricature/user.json", function(importUser
             ShowNotifications();
         }
 
-        function ShowNotifications()
+        export function ShowNotifications()
         {
             asyncFetch("http://3.135.241.211:8081/Caricature/allReim.json", function(reims)
             {

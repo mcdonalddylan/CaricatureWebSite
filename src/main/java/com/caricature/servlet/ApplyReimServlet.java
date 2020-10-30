@@ -20,33 +20,6 @@ public class ApplyReimServlet extends HttpServlet {
 	ReimburseDAO rDAO = new ReimburseDAO();
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int typeId = Integer.parseInt(req.getParameter("reim-type"));
-		if(typeId == -1)
-		{
-			System.out.println("None selected");
-		}
-		
-		String desc = req.getParameter("reim-desc");
-		float amount = Integer.parseInt(req.getParameter("amount"));
-		
-		HttpSession session = req.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		
-		Reimbursement reim = new Reimbursement();
-		reim.setAmount(amount);
-		reim.setSubmitDate(LocalDateTime.now());
-		reim.setDescription(desc);
-		reim.setAuthorId(userId);
-		reim.setResolverId(11);  //this is the temporary "null" user id in the db
-		reim.setStatusId(3);
-		reim.setTypeId(typeId);
-		
-		rDAO.create(reim);
-		//req.getRequestDispatcher("./reimburse").forward(req, resp);
-		resp.sendRedirect("./reimburse");
-	}
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int typeId = Integer.parseInt(req.getParameter("reim-type"));
@@ -71,8 +44,17 @@ public class ApplyReimServlet extends HttpServlet {
 		reim.setTypeId(typeId);
 		
 		rDAO.create(reim);
-		//req.getRequestDispatcher("./reimburse").forward(req, resp);
-		resp.sendRedirect("./reimburse");
+		
+		String userRole = (String) session.getAttribute("userRole");
+		if(userRole.equals("Employee"))
+		{
+			req.getRequestDispatcher("html/reimburseEmp.html").forward(req, resp);
+		}
+		else
+		{
+			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
+		}
+		
 	}
 
 }
