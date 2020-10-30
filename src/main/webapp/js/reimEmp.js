@@ -278,13 +278,12 @@ async function toggleView()
             }
             else
             {
-                const divC = document.createElement("div");
+                const divC = document.getElementById("message-area");
                 const divR = document.createElement("div");
-                divC.className = "container";
                 divR.className = "row justify-content-center";
                 const emptyMsg = document.createElement("p");
                 emptyMsg.style = "color: #441100; text-shadow: 1px 1px  10px rgba(0,0,0,0.2); font-weight:bolder;";
-                emptyMsg.innerText = "Wow. There are no reimbursements to display.";
+                emptyMsg.innerText = "Wow. There are no reimbursements to display. Dang.";
                 divR.append(emptyMsg);
                 divC.append(divR);
             }
