@@ -6,7 +6,7 @@ let user = new User();
 
 let count = 0;
 
-asyncFetch("http://localhost:8081/Caricature/user.json", function(importUser)
+asyncFetch("http://3.135.241.211:8081/Caricature/user.json", function(importUser)
 {
     //console.log(importUser);
     //console.log(typeof importUser);
@@ -150,7 +150,7 @@ asyncFetch("http://localhost:8081/Caricature/user.json", function(importUser)
 
         function ShowNotifications()
         {
-            asyncFetch("http://localhost:8081/Caricature/allReim.json", function(reims)
+            asyncFetch("http://3.135.241.211:8081/Caricature/allReim.json", function(reims)
             {
                 let count = 0;
 
