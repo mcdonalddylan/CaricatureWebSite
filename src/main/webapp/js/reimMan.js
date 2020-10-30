@@ -14,6 +14,10 @@ async function toggleApply()
         //remove table from content-area div
         const tableRow = document.getElementById("reim-table-row");
         conDiv.removeChild(tableRow);
+
+        const divCon = document.getElementById("message-area");
+        const divRId = document.getElementById("error-msg");
+        divCon.removeChild(divRId);
     }
     if(isView === false && isApply === false)
     {
@@ -299,6 +303,7 @@ async function toggleView()
                 const divC = document.getElementById("message-area");
                 const divR = document.createElement("div");
                 divR.className = "row justify-content-center";
+                divR.id = "error-msg";
                 const emptyMsg = document.createElement("p");
                 emptyMsg.style = "color: #441100; text-shadow: 1px 1px  10px rgba(0,0,0,0.2); font-weight:bolder;";
                 emptyMsg.innerText = "Wow. There are no reimbursements to display. Dang.";
