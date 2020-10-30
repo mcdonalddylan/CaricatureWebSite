@@ -19,6 +19,7 @@ import com.caricature.util.DAOConnection;
 
 public class ControllerTest {
 
+	/*
 	private ServletDataController servData;
 	
 	//@Before
@@ -27,7 +28,7 @@ public class ControllerTest {
 		servData = new ServletDataController();
 	}
 	
-	/*
+	
 	@Test
 	public void testSendUser() throws SQLException
 	{

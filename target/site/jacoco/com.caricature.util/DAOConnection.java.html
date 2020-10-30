@@ -31,12 +31,12 @@ public class DAOConnection {
 	
 	public static DAOConnection getInstance()
 	{
-<span class="nc bnc" id="L34" title="All 2 branches missed.">		if(instance == null)</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">		if(instance == null)</span>
 		{
-<span class="nc" id="L36">			instance = new DAOConnection();</span>
+<span class="fc" id="L36">			instance = new DAOConnection();</span>
 		}
 		
-<span class="nc" id="L39">		return instance;</span>
+<span class="fc" id="L39">		return instance;</span>
 	}
 	
 	public Connection getConnection() throws SQLException

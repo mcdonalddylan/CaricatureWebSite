@@ -8,12 +8,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.caricature.model.User;
+import com.caricature.repo.UserDAO;
+
 @WebServlet(name = &quot;createUser&quot;, urlPatterns = {&quot;/createUser&quot;}, loadOnStartup = 0)
-<span class="nc" id="L12">public class CreateUserServlet extends HttpServlet{</span>
+<span class="nc" id="L15">public class CreateUserServlet extends HttpServlet{</span>
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-<span class="nc" id="L17">	}</span>
+<span class="nc" id="L20">		UserDAO uDAO = new UserDAO();</span>
+<span class="nc" id="L21">		String username = req.getParameter(&quot;user-entry&quot;);</span>
+<span class="nc" id="L22">		String password = req.getParameter(&quot;pass-entry&quot;);</span>
+<span class="nc" id="L23">		String email = req.getParameter(&quot;email-entry&quot;);</span>
+<span class="nc" id="L24">		String firstName = req.getParameter(&quot;first-entry&quot;);</span>
+<span class="nc" id="L25">		String lastName = req.getParameter(&quot;last-entry&quot;);</span>
+		
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		if(uDAO.isUser(username) == false)</span>
+		{
+<span class="nc" id="L29">			User user = new User(0,username,password,firstName,lastName,email,1);</span>
+<span class="nc" id="L30">			uDAO.create(user);</span>
+<span class="nc" id="L31">			resp.sendRedirect(&quot;./&quot;);</span>
+<span class="nc" id="L32">		}</span>
+		else
+		{
+<span class="nc" id="L35">			System.out.println(&quot;username already exists&quot;);</span>
+<span class="nc" id="L36">			resp.sendRedirect(&quot;./apply&quot;);</span>
+		}
+<span class="nc" id="L38">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

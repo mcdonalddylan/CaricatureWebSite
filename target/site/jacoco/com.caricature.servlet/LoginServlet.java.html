@@ -20,11 +20,11 @@ import com.caricature.model.User;
 import com.caricature.repo.UserDAO;
 
 @WebServlet(name = &quot;login&quot;, urlPatterns = {&quot;/login&quot;}, loadOnStartup = 0)
-<span class="nc" id="L23">public class LoginServlet extends HttpServlet {</span>
+<span class="fc" id="L23">public class LoginServlet extends HttpServlet {</span>
 
-<span class="nc" id="L25">	static Logger logger = Logger.getLogger(LoginServlet.class);</span>
+<span class="fc" id="L25">	static Logger logger = Logger.getLogger(LoginServlet.class);</span>
 	
-<span class="nc" id="L27">	private UserDAO userDAO = null;</span>
+<span class="fc" id="L27">	private UserDAO userDAO = null;</span>
 	
 	//protected static Logger log = Logger.getLogger(HomeServlet.class);
 	
@@ -33,120 +33,113 @@ import com.caricature.repo.UserDAO;
 <span class="nc" id="L33">		userDAO = new UserDAO();</span>
 <span class="nc" id="L34">	}</span>
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-<span class="nc" id="L39">	}</span>
-	
 	//allows for logging in to take place
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-<span class="nc" id="L45">		String username = req.getParameter(&quot;username&quot;);</span>
-<span class="nc" id="L46">		String password = req.getParameter(&quot;password&quot;);</span>
+<span class="nc" id="L40">		String username = req.getParameter(&quot;username&quot;);</span>
+<span class="nc" id="L41">		String password = req.getParameter(&quot;password&quot;);</span>
 		
-<span class="nc bnc" id="L48" title="All 4 branches missed.">		if(username != &quot;&quot; &amp;&amp; password != &quot;&quot;)</span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">		if(username != &quot;&quot; &amp;&amp; password != &quot;&quot;)</span>
 		{
-<span class="nc bnc" id="L50" title="All 2 branches missed.">			if(userDAO.isUser(username))</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">			if(userDAO.isUser(username))</span>
 			{
-<span class="nc" id="L52">				String newPass = password;</span>
-<span class="nc" id="L53">				logger.info(&quot;Username was found!&quot;);</span>
+<span class="nc" id="L47">				String newPass = password;</span>
+<span class="nc" id="L48">				logger.info(&quot;Username was found!&quot;);</span>
 				
 				//convert password to hashcode
 				try {
 					
-<span class="nc" id="L58">					MessageDigest md = MessageDigest.getInstance(&quot;MD5&quot;);</span>
-<span class="nc" id="L59">					byte[] hashPass = md.digest(password.getBytes());</span>
-<span class="nc" id="L60">					newPass = hexString(hashPass);</span>
+<span class="nc" id="L53">					MessageDigest md = MessageDigest.getInstance(&quot;MD5&quot;);</span>
+<span class="nc" id="L54">					byte[] hashPass = md.digest(password.getBytes());</span>
+<span class="nc" id="L55">					newPass = hexString(hashPass);</span>
 					
-<span class="nc" id="L62">				} catch (NoSuchAlgorithmException e) {</span>
-<span class="nc" id="L63">					e.printStackTrace();</span>
-<span class="nc" id="L64">				}</span>
+<span class="nc" id="L57">				} catch (NoSuchAlgorithmException e) {</span>
+<span class="nc" id="L58">					e.printStackTrace();</span>
+<span class="nc" id="L59">				}</span>
 				
-<span class="nc" id="L66">				User user = userDAO.get(username, newPass);</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">				if(user != null)</span>
+<span class="nc" id="L61">				User user = userDAO.get(username, newPass);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">				if(user != null)</span>
 				{
-					//user found so you can actually log the user in
-<span class="nc" id="L70">					ServletDataController.getInstance().setUser(user);</span>
 					//ServletDataController.getInstance().sendUserData(resp);
-<span class="nc" id="L72">					HttpSession session = req.getSession();</span>
-<span class="nc" id="L73">					session.setAttribute(&quot;userId&quot;, user.getId());</span>
-<span class="nc" id="L74">					session.setAttribute(&quot;userEmail&quot;, user.getEmail());</span>
-<span class="nc" id="L75">					session.setAttribute(&quot;username&quot;, username);</span>
-<span class="nc" id="L76">					session.setAttribute(&quot;lastName&quot;, user.getLastName());</span>
-<span class="nc" id="L77">					session.setAttribute(&quot;firstName&quot;, user.getFirstName());</span>
-<span class="nc" id="L78">					session.setAttribute(&quot;userRole&quot;, user.getRole());</span>
+<span class="nc" id="L65">					HttpSession session = req.getSession();</span>
+<span class="nc" id="L66">					session.setAttribute(&quot;userId&quot;, user.getId());</span>
+<span class="nc" id="L67">					session.setAttribute(&quot;userEmail&quot;, user.getEmail());</span>
+<span class="nc" id="L68">					session.setAttribute(&quot;username&quot;, username);</span>
+<span class="nc" id="L69">					session.setAttribute(&quot;lastName&quot;, user.getLastName());</span>
+<span class="nc" id="L70">					session.setAttribute(&quot;firstName&quot;, user.getFirstName());</span>
+<span class="nc" id="L71">					session.setAttribute(&quot;userRole&quot;, user.getRole());</span>
 					
-<span class="nc" id="L80">					logger.info(&quot;USER: &quot; + user.getFirstName() + &quot; LOGGED IN!&quot;);</span>
+<span class="nc" id="L73">					logger.info(&quot;USER: &quot; + user.getFirstName() + &quot; LOGGED IN!&quot;);</span>
 					
 					//reload the page
-<span class="nc" id="L83">					req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
+<span class="nc" id="L76">					req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
 					//req.getRequestDispatcher(req.getRequestURI()).forward(req, resp);
-<span class="nc" id="L85">				}</span>
+<span class="nc" id="L78">				}</span>
 				else
 				{
 					//print onto the error paragraph that the user wasn't found
-<span class="nc" id="L89">					logger.error(&quot;passwords did not match&quot;);</span>
-<span class="nc" id="L90">					HttpSession session = req.getSession();</span>
-<span class="nc" id="L91">					session.setAttribute(&quot;userId&quot;, null);</span>
-<span class="nc" id="L92">					session.setAttribute(&quot;username&quot;, null);</span>
-<span class="nc" id="L93">					session.setAttribute(&quot;lastName&quot;, null);</span>
-<span class="nc" id="L94">					session.setAttribute(&quot;firstName&quot;, null);</span>
-<span class="nc" id="L95">					session.setAttribute(&quot;userRole&quot;, null);</span>
-<span class="nc" id="L96">					session.setAttribute(&quot;userEmail&quot;, null);</span>
+<span class="nc" id="L82">					logger.error(&quot;passwords did not match&quot;);</span>
+<span class="nc" id="L83">					HttpSession session = req.getSession();</span>
+<span class="nc" id="L84">					session.setAttribute(&quot;userId&quot;, null);</span>
+<span class="nc" id="L85">					session.setAttribute(&quot;username&quot;, null);</span>
+<span class="nc" id="L86">					session.setAttribute(&quot;lastName&quot;, null);</span>
+<span class="nc" id="L87">					session.setAttribute(&quot;firstName&quot;, null);</span>
+<span class="nc" id="L88">					session.setAttribute(&quot;userRole&quot;, null);</span>
+<span class="nc" id="L89">					session.setAttribute(&quot;userEmail&quot;, null);</span>
 					
-<span class="nc" id="L98">					req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
+<span class="nc" id="L91">					req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
 				}
-<span class="nc" id="L100">			}</span>
+<span class="nc" id="L93">			}</span>
 			else
 			{
 				//username not found
-<span class="nc" id="L104">				logger.error(&quot;username not found.&quot;);</span>
-<span class="nc" id="L105">				HttpSession session = req.getSession();</span>
-<span class="nc" id="L106">				session.setAttribute(&quot;userId&quot;, null);</span>
-<span class="nc" id="L107">				session.setAttribute(&quot;username&quot;, null);</span>
-<span class="nc" id="L108">				session.setAttribute(&quot;lastName&quot;, null);</span>
-<span class="nc" id="L109">				session.setAttribute(&quot;firstName&quot;, null);</span>
-<span class="nc" id="L110">				session.setAttribute(&quot;userRole&quot;, null);</span>
-<span class="nc" id="L111">				session.setAttribute(&quot;userEmail&quot;, null);</span>
+<span class="nc" id="L97">				logger.error(&quot;username not found.&quot;);</span>
+<span class="nc" id="L98">				HttpSession session = req.getSession();</span>
+<span class="nc" id="L99">				session.setAttribute(&quot;userId&quot;, null);</span>
+<span class="nc" id="L100">				session.setAttribute(&quot;username&quot;, null);</span>
+<span class="nc" id="L101">				session.setAttribute(&quot;lastName&quot;, null);</span>
+<span class="nc" id="L102">				session.setAttribute(&quot;firstName&quot;, null);</span>
+<span class="nc" id="L103">				session.setAttribute(&quot;userRole&quot;, null);</span>
+<span class="nc" id="L104">				session.setAttribute(&quot;userEmail&quot;, null);</span>
 				
-<span class="nc" id="L113">				req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
-<span class="nc" id="L114">			}</span>
+<span class="nc" id="L106">				req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
+<span class="nc" id="L107">			}</span>
 		}
 		else
 		{
 			//one or both of the fields were not even filled out
-<span class="nc" id="L119">			logger.error(&quot;please enter something into both fields.&quot;);</span>
-<span class="nc" id="L120">			HttpSession session = req.getSession();</span>
-<span class="nc" id="L121">			session.setAttribute(&quot;userId&quot;, null);</span>
-<span class="nc" id="L122">			session.setAttribute(&quot;username&quot;, null);</span>
-<span class="nc" id="L123">			session.setAttribute(&quot;lastName&quot;, null);</span>
-<span class="nc" id="L124">			session.setAttribute(&quot;firstName&quot;, null);</span>
-<span class="nc" id="L125">			session.setAttribute(&quot;userRole&quot;, null);</span>
-<span class="nc" id="L126">			session.setAttribute(&quot;userEmail&quot;, null);</span>
+<span class="nc" id="L112">			logger.error(&quot;please enter something into both fields.&quot;);</span>
+<span class="nc" id="L113">			HttpSession session = req.getSession();</span>
+<span class="nc" id="L114">			session.setAttribute(&quot;userId&quot;, null);</span>
+<span class="nc" id="L115">			session.setAttribute(&quot;username&quot;, null);</span>
+<span class="nc" id="L116">			session.setAttribute(&quot;lastName&quot;, null);</span>
+<span class="nc" id="L117">			session.setAttribute(&quot;firstName&quot;, null);</span>
+<span class="nc" id="L118">			session.setAttribute(&quot;userRole&quot;, null);</span>
+<span class="nc" id="L119">			session.setAttribute(&quot;userEmail&quot;, null);</span>
 			
-<span class="nc" id="L128">			req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
+<span class="nc" id="L121">			req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
 		}
 		
-<span class="nc" id="L131">	}</span>
+<span class="nc" id="L124">	}</span>
 	
 	
 	//function found at: https://stackoverflow.com/questions/1033947/mysql-md5-and-java-md5-not-equal
 	//meant to encode the hashed password into base 16 to match the password in the db.
-	public static String hexString( byte[] bytes ) 
+	public String hexString( byte[] bytes ) 
 	{
-<span class="nc" id="L138">	  StringBuffer sb = new StringBuffer();</span>
-<span class="nc bnc" id="L139" title="All 2 branches missed.">	  for( int i=0; i&lt;bytes.length; i++ )     </span>
+<span class="fc" id="L131">	  StringBuffer sb = new StringBuffer();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">	  for( int i=0; i&lt;bytes.length; i++ )     </span>
 	  {
-<span class="nc" id="L141">	     byte b = bytes[ i ];</span>
-<span class="nc" id="L142">	     String hex = Integer.toHexString((int) 0x00FF &amp; b);</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">	     if (hex.length() == 1) </span>
+<span class="fc" id="L134">	     byte b = bytes[ i ];</span>
+<span class="fc" id="L135">	     String hex = Integer.toHexString((int) 0x00FF &amp; b);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">	     if (hex.length() == 1) </span>
 	     {
-<span class="nc" id="L145">	        sb.append(&quot;0&quot;);</span>
+<span class="fc" id="L138">	        sb.append(&quot;0&quot;);</span>
 	     }
-<span class="nc" id="L147">	     sb.append( hex );</span>
+<span class="fc" id="L140">	     sb.append( hex );</span>
 	  }
-<span class="nc" id="L149">	  return sb.toString();</span>
+<span class="fc" id="L142">	  return sb.toString();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

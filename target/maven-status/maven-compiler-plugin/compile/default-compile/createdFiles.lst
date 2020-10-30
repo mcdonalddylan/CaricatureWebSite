@@ -1,12 +1,8 @@
 com\caricature\servlet\DataServlet.class
 com\caricature\controller\ServletDataController.class
-com\caricature\model\ReimburseBuilder.class
 com\caricature\model\User.class
-com\caricature\model\ReimStatus.class
 com\caricature\repo\UserDAO.class
 com\caricature\servlet\RequestForwarder.class
-com\caricature\model\ReimType.class
-com\caricature\model\UserRole.class
 com\caricature\model\Reimbursement.class
 com\caricature\repo\ReimburseDAO.class
 com\caricature\util\DAOInterface.class

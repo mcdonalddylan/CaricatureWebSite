@@ -48,7 +48,7 @@ public class DAOTest {
 		User tempU = new User(6969,"bingy","wingy", "chingy","dodingy","ringy@smingy.chungo", 3);
 		assertTrue(uDAO.create(tempU));
 		assertTrue(uDAO.isUser("bingy"));
-		assertTrue(uDAO.delete(18));
+		assertTrue(uDAO.delete(28));
 		
 		String newPass = "";
 		try {
@@ -61,9 +61,13 @@ public class DAOTest {
 		}
 		
 		User tempU2 = new User(9,"sys", newPass,"Butt","King","totallylegit@dreambutts.com", 3);
-		assertEquals(tempU2, uDAO.get("sys","secure"));
-		assertEquals(tempU2, uDAO.get(9));
+		User tempU3 = uDAO.get("sys","secure");
+		User tempU4 = uDAO.get(9);
+		assertEquals(tempU2, tempU3);
+		assertEquals(tempU2, tempU4);
 	}
+	
+	
 	
 	@Test
 	public void testReimDAO() throws SQLException
@@ -71,11 +75,13 @@ public class DAOTest {
 		LocalDateTime now = LocalDateTime.now();
 		Reimbursement tempR = new Reimbursement(500,now,null,"idk",null,9,11,3,1);
 		assertTrue(rDAO.create(tempR));
-		assertEquals(tempR, rDAO.get(27));
-		assertTrue(rDAO.update(21, 9, 2));
-		assertTrue(rDAO.delete(21));
+		assertTrue(rDAO.update(9, 9, 2));
+		assertTrue(rDAO.delete(9));
 		
 	}
+	
+	//Reimbursement tempR2 = rDAO.get(40);
+	//assertEquals(tempR, tempR2);
 	
 
 }

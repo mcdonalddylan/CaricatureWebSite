@@ -16,11 +16,11 @@ import com.caricature.model.User;
 
 @WebServlet(name = &quot;logout&quot;, urlPatterns = {&quot;/logout&quot;}, loadOnStartup = 0)
 <span class="nc" id="L18">public class LogoutServlet extends HttpServlet {</span>
-
+	
+	//allows for logging in to take place
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-<span class="nc" id="L22">		User tempUser = null;</span>
-<span class="nc" id="L23">		ServletDataController.getInstance().setUser(tempUser);</span>
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 <span class="nc" id="L24">		HttpSession session = req.getSession();</span>
 <span class="nc" id="L25">		session.setAttribute(&quot;userId&quot;, null);</span>
 <span class="nc" id="L26">		session.setAttribute(&quot;username&quot;, null);</span>
@@ -31,22 +31,5 @@ import com.caricature.model.User;
 		
 <span class="nc" id="L32">		req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
 <span class="nc" id="L33">	}</span>
-	
-	//allows for logging in to take place
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-<span class="nc" id="L39">		User tempUser = null;</span>
-<span class="nc" id="L40">		ServletDataController.getInstance().setUser(tempUser);</span>
-<span class="nc" id="L41">		HttpSession session = req.getSession();</span>
-<span class="nc" id="L42">		session.setAttribute(&quot;userId&quot;, null);</span>
-<span class="nc" id="L43">		session.setAttribute(&quot;username&quot;, null);</span>
-<span class="nc" id="L44">		session.setAttribute(&quot;lastName&quot;, null);</span>
-<span class="nc" id="L45">		session.setAttribute(&quot;firstName&quot;, null);</span>
-<span class="nc" id="L46">		session.setAttribute(&quot;userRole&quot;, null);</span>
-<span class="nc" id="L47">		session.setAttribute(&quot;userEmail&quot;, null);</span>
-		
-<span class="nc" id="L49">		req.getRequestDispatcher(&quot;html/index.html&quot;).forward(req, resp);</span>
-<span class="nc" id="L50">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

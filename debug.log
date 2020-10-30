@@ -8,3 +8,22 @@
 2020-10-29 22:16:06 INFO  ReimburseDAO:218 - reimbursement successfully created!
 2020-10-29 22:16:23 INFO  ReimburseDAO:218 - reimbursement successfully created!
 2020-10-29 22:16:34 INFO  ReimburseDAO:218 - reimbursement successfully created!
+2020-10-30 10:20:21 INFO  UserDAO:152 - username found!
+2020-10-30 10:20:22 INFO  ReimburseDAO:219 - reimbursement successfully created!
+2020-10-30 10:31:06 INFO  UserDAO:152 - username found!
+2020-10-30 10:31:08 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:32:16 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:40:45 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:41:52 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:43:43 INFO  UserDAO:152 - username found!
+2020-10-30 10:43:44 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:47:49 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:47:50 INFO  ReimburseDAO:258 - reimbursement successfully created!
+2020-10-30 10:47:50 INFO  ReimburseDAO:287 - reimbursement successfully DELETED!
+2020-10-30 10:52:41 INFO  UserDAO:152 - username found!
+2020-10-30 10:52:43 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:52:43 INFO  ReimburseDAO:258 - reimbursement successfully created!
+2020-10-30 10:52:43 INFO  ReimburseDAO:287 - reimbursement successfully DELETED!
+2020-10-30 10:55:05 INFO  UserDAO:152 - username found!
+2020-10-30 10:55:06 INFO  ReimburseDAO:225 - reimbursement successfully created!
+2020-10-30 10:55:07 ERROR ReimburseDAO:264 - reimbursement was not created

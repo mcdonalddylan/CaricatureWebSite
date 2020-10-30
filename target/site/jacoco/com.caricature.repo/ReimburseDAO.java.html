@@ -16,9 +16,9 @@ import com.caricature.model.User;
 import com.caricature.util.DAOConnection;
 import com.caricature.util.DAOInterface;
 
-<span class="nc" id="L19">public class ReimburseDAO implements DAOInterface&lt;Reimbursement, Integer&gt;{</span>
+<span class="fc" id="L19">public class ReimburseDAO implements DAOInterface&lt;Reimbursement, Integer&gt;{</span>
 
-<span class="nc" id="L21">	private static Logger log = Logger.getLogger(ReimburseDAO.class);</span>
+<span class="fc" id="L21">	private static Logger log = Logger.getLogger(ReimburseDAO.class);</span>
 
 	@Override
 	public List&lt;Reimbursement&gt; getAll() {
@@ -27,7 +27,7 @@ import com.caricature.util.DAOInterface;
 		
 		try {
 <span class="nc" id="L29">			con = DAOConnection.getInstance().getConnection();</span>
-<span class="nc" id="L30">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view&quot;);</span>
+<span class="nc" id="L30">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view order by submitted desc&quot;);</span>
 <span class="nc" id="L31">			ResultSet rs = stmt.executeQuery();</span>
 			
 <span class="nc bnc" id="L33" title="All 2 branches missed.">			while(rs.next())</span>
@@ -36,8 +36,8 @@ import com.caricature.util.DAOInterface;
 				
 <span class="nc" id="L37">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
 <span class="nc" id="L38">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
-<span class="nc" id="L39">				reim.setSubmitDate(rs.getTimestamp(&quot;submitted&quot;));</span>
-<span class="nc" id="L40">				reim.setResolveDate(rs.getTimestamp(&quot;resolved&quot;));</span>
+<span class="nc" id="L39">				reim.setSubmitDate(rs.getObject(&quot;submitted&quot;, LocalDateTime.class));</span>
+<span class="nc" id="L40">				reim.setResolveDate(rs.getObject(&quot;resolved&quot;, LocalDateTime.class));</span>
 <span class="nc" id="L41">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
 <span class="nc" id="L42">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
 				
@@ -57,7 +57,7 @@ import com.caricature.util.DAOInterface;
 				
 				
 <span class="nc" id="L59">				rList.add(reim);</span>
-<span class="nc" id="L60">			}</span>
+			}
 			
 <span class="nc" id="L62">			rs.close();</span>
 <span class="nc" id="L63">			stmt.close();</span>
@@ -69,7 +69,7 @@ import com.caricature.util.DAOInterface;
 <span class="nc" id="L69">			e.printStackTrace();</span>
 <span class="nc" id="L70">			log.error(&quot;unable to retrieve reimbursement data&quot;);</span>
 <span class="nc" id="L71">			rList = null;</span>
-<span class="nc" id="L72">		}</span>
+		}
 		
 <span class="nc" id="L74">		return rList;</span>
 	}
@@ -92,8 +92,8 @@ import com.caricature.util.DAOInterface;
 				
 <span class="nc" id="L93">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
 <span class="nc" id="L94">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
-<span class="nc" id="L95">				reim.setSubmitDate(rs.getTimestamp(&quot;submitted&quot;));</span>
-<span class="nc" id="L96">				reim.setResolveDate(rs.getTimestamp(&quot;resolved&quot;));</span>
+<span class="nc" id="L95">				reim.setSubmitDate(rs.getObject(&quot;submitted&quot;, LocalDateTime.class));</span>
+<span class="nc" id="L96">				reim.setResolveDate(rs.getObject(&quot;resolved&quot;, LocalDateTime.class));</span>
 <span class="nc" id="L97">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
 <span class="nc" id="L98">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
 				
@@ -113,77 +113,76 @@ import com.caricature.util.DAOInterface;
 				
 				
 <span class="nc" id="L115">				rList.add(reim);</span>
-<span class="nc" id="L116">			}</span>
+			}
 			
 <span class="nc" id="L118">			rs.close();</span>
 <span class="nc" id="L119">			stmt.close();</span>
 			
-<span class="nc" id="L121">			log.info(&quot;successfully retrieved all reimburesment data of user: &quot; +</span>
-<span class="nc" id="L122">			rList.get(0).getAuthor().getFirstName());</span>
+<span class="nc" id="L121">			log.info(&quot;successfully retrieved user reimburesment data&quot;);</span>
 			
-<span class="nc" id="L124">		} catch (SQLException e) {</span>
+<span class="nc" id="L123">		} catch (SQLException e) {</span>
 			// TODO Auto-generated catch block
-<span class="nc" id="L126">			e.printStackTrace();</span>
-<span class="nc" id="L127">			log.error(&quot;unable to retrieve user specific reimbursement data&quot;);</span>
-<span class="nc" id="L128">			rList = null;</span>
-<span class="nc" id="L129">		}</span>
+<span class="nc" id="L125">			e.printStackTrace();</span>
+<span class="nc" id="L126">			log.error(&quot;unable to retrieve user specific reimbursement data&quot;);</span>
+<span class="nc" id="L127">			rList = null;</span>
+		}
 		
-<span class="nc" id="L131">		return rList;</span>
+<span class="nc" id="L130">		return rList;</span>
 	}
 
 	@Override
 	public Reimbursement get(Integer idVal) {
-<span class="nc" id="L136">		Reimbursement reim = null;</span>
+<span class="nc" id="L135">		Reimbursement reim = null;</span>
 		Connection con;
 		
 		try {
-<span class="nc" id="L140">			con = DAOConnection.getInstance().getConnection();</span>
-<span class="nc" id="L141">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view where author_id = ? order by submitted asc&quot;);</span>
+<span class="nc" id="L139">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="nc" id="L140">			PreparedStatement stmt = con.prepareStatement(&quot;select * from reim_view where author_id = ? order by submitted asc&quot;);</span>
 			
-<span class="nc" id="L143">			stmt.setInt(1, idVal);</span>
+<span class="nc" id="L142">			stmt.setInt(1, idVal);</span>
 			
-<span class="nc" id="L145">			ResultSet rs = stmt.executeQuery();</span>
+<span class="nc" id="L144">			ResultSet rs = stmt.executeQuery();</span>
 			
-<span class="nc bnc" id="L147" title="All 2 branches missed.">			while(rs.next())</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">			while(rs.next())</span>
 			{
-<span class="nc" id="L149">				reim = new Reimbursement();</span>
+<span class="nc" id="L148">				reim = new Reimbursement();</span>
 				
-<span class="nc" id="L151">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
-<span class="nc" id="L152">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
-<span class="nc" id="L153">				reim.setSubmitDate(rs.getTimestamp(&quot;submitted&quot;));</span>
-<span class="nc" id="L154">				reim.setResolveDate(rs.getTimestamp(&quot;resolved&quot;));</span>
-<span class="nc" id="L155">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
-<span class="nc" id="L156">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
+<span class="nc" id="L150">				reim.setId(rs.getInt(&quot;reim_id&quot;));</span>
+<span class="nc" id="L151">				reim.setAmount(rs.getInt(&quot;amount&quot;));</span>
+<span class="nc" id="L152">				reim.setSubmitDate(rs.getObject(&quot;submitted&quot;, LocalDateTime.class));</span>
+<span class="nc" id="L153">				reim.setResolveDate(rs.getObject(&quot;resolved&quot;, LocalDateTime.class));</span>
+<span class="nc" id="L154">				reim.setDescription(rs.getString(&quot;description&quot;));</span>
+<span class="nc" id="L155">				reim.setRecipt(rs.getBytes(&quot;recipt&quot;));</span>
 				
-<span class="nc" id="L158">				User tempUser = new User();</span>
-<span class="nc" id="L159">				tempUser.setId(rs.getInt(&quot;author_id&quot;));</span>
-<span class="nc" id="L160">				tempUser.setFirstName(rs.getString(&quot;author_first&quot;));</span>
-<span class="nc" id="L161">				tempUser.setLastName(rs.getString(&quot;author_last&quot;));</span>
-<span class="nc" id="L162">				reim.setAuthor(tempUser);</span>
-<span class="nc" id="L163">				User tempUser2 = new User();</span>
-<span class="nc" id="L164">				tempUser2.setId(rs.getInt(&quot;resolver_id&quot;));</span>
-<span class="nc" id="L165">				tempUser2.setFirstName(rs.getString(&quot;resolver_first&quot;));</span>
-<span class="nc" id="L166">				tempUser2.setLastName(rs.getString(&quot;resolver_last&quot;));</span>
-<span class="nc" id="L167">				reim.setResolver(tempUser);</span>
+<span class="nc" id="L157">				User tempUser = new User();</span>
+<span class="nc" id="L158">				tempUser.setId(rs.getInt(&quot;author_id&quot;));</span>
+<span class="nc" id="L159">				tempUser.setFirstName(rs.getString(&quot;author_first&quot;));</span>
+<span class="nc" id="L160">				tempUser.setLastName(rs.getString(&quot;author_last&quot;));</span>
+<span class="nc" id="L161">				reim.setAuthor(tempUser);</span>
+<span class="nc" id="L162">				User tempUser2 = new User();</span>
+<span class="nc" id="L163">				tempUser2.setId(rs.getInt(&quot;resolver_id&quot;));</span>
+<span class="nc" id="L164">				tempUser2.setFirstName(rs.getString(&quot;resolver_first&quot;));</span>
+<span class="nc" id="L165">				tempUser2.setLastName(rs.getString(&quot;resolver_last&quot;));</span>
+<span class="nc" id="L166">				reim.setResolver(tempUser);</span>
 				
-<span class="nc" id="L169">				reim.setType(rs.getString(&quot;reim_type&quot;));</span>
-<span class="nc" id="L170">				reim.setStatus(rs.getString(&quot;reim_status&quot;));</span>
-<span class="nc" id="L171">			}</span>
+<span class="nc" id="L168">				reim.setType(rs.getString(&quot;reim_type&quot;));</span>
+<span class="nc" id="L169">				reim.setStatus(rs.getString(&quot;reim_status&quot;));</span>
+			}
 			
-<span class="nc" id="L173">			rs.close();</span>
-<span class="nc" id="L174">			stmt.close();</span>
+<span class="nc" id="L172">			rs.close();</span>
+<span class="nc" id="L173">			stmt.close();</span>
 			
-<span class="nc" id="L176">			log.info(&quot;successfully retrieved reimburesment data of user: &quot; +</span>
-<span class="nc" id="L177">			reim.getAuthor().getFirstName());</span>
+			//log.info(&quot;successfully retrieved reimburesment data of user: &quot; +
+			//reim.getAuthor().getFirstName());
 			
-<span class="nc" id="L179">		} catch (SQLException e) {</span>
+<span class="nc" id="L178">		} catch (SQLException e) {</span>
 			// TODO Auto-generated catch block
-<span class="nc" id="L181">			e.printStackTrace();</span>
-<span class="nc" id="L182">			log.error(&quot;unable to retrieve user specific reimbursement data&quot;);</span>
-<span class="nc" id="L183">			reim = null;</span>
-<span class="nc" id="L184">		}</span>
+<span class="nc" id="L180">			e.printStackTrace();</span>
+<span class="nc" id="L181">			log.error(&quot;unable to retrieve user specific reimbursement data&quot;);</span>
+<span class="nc" id="L182">			reim = null;</span>
+		}
 		
-<span class="nc" id="L186">		return reim;</span>
+<span class="nc" id="L185">		return reim;</span>
 	}
 
 	@Override
@@ -191,37 +190,51 @@ import com.caricature.util.DAOInterface;
 		Connection con;
 		
 		try {
-<span class="nc" id="L194">			con = DAOConnection.getInstance().getConnection();</span>
-<span class="nc" id="L195">			PreparedStatement stmt = con.prepareStatement(&quot;insert into reimbursement (amount,&quot;</span>
+<span class="fc" id="L193">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="fc" id="L194">			PreparedStatement stmt = con.prepareStatement(&quot;insert into reimbursement (amount,&quot;</span>
 					+ &quot;submitted, resolved, description, recipt, author, resolver, status_id, type_id) &quot;
 					+ &quot;values (?,?,?,?,?,?,?,?,?)&quot;);
 			
-<span class="nc" id="L199">			stmt.setInt(1, (int)t.getAmount());</span>
-<span class="nc" id="L200">			stmt.setTimestamp(2, t.getSubmitDate());</span>
-<span class="nc" id="L201">			stmt.setTimestamp(3, t.getResolveDate());</span>
-<span class="nc" id="L202">			stmt.setString(4, t.getDescription());</span>
-<span class="nc" id="L203">			stmt.setBytes(5, t.getRecipt());</span>
-<span class="nc" id="L204">			stmt.setInt(6, t.getAuthorId());</span>
-<span class="nc" id="L205">			stmt.setInt(7, t.getResolverId());</span>
-<span class="nc" id="L206">			stmt.setInt(8, t.getStatusId());</span>
-<span class="nc" id="L207">			stmt.setInt(9, t.getTypeId());</span>
-			
-<span class="nc bnc" id="L209" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+<span class="fc" id="L198">			stmt.setInt(1, (int)t.getAmount());</span>
+<span class="fc" id="L199">			stmt.setTimestamp(2, Timestamp.valueOf(t.getSubmitDate()));</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">			if(t.getResolveDate() != null)</span>
 			{
-<span class="nc" id="L211">				stmt.close();</span>
-<span class="nc" id="L212">				log.info(&quot;reimbursement successfully created!&quot;);</span>
-<span class="nc" id="L213">				return true;//success</span>
+<span class="nc" id="L202">				stmt.setTimestamp(3, Timestamp.valueOf(t.getResolveDate()));</span>
+<span class="nc" id="L203">			}</span>
+			else
+			{
+<span class="fc" id="L206">				stmt.setTimestamp(3, null);</span>
+			}
+<span class="fc" id="L208">			stmt.setString(4, t.getDescription());</span>
+<span class="pc bpc" id="L209" title="1 of 2 branches missed.">			if(t.getRecipt() != null)</span>
+			{
+<span class="nc" id="L211">				stmt.setBytes(5, t.getRecipt());</span>
+<span class="nc" id="L212">			}</span>
+			else
+			{
+<span class="fc" id="L215">				stmt.setBytes(5, null);</span>
+			}
+<span class="fc" id="L217">			stmt.setInt(6, t.getAuthorId());</span>
+<span class="fc" id="L218">			stmt.setInt(7, t.getResolverId());</span>
+<span class="fc" id="L219">			stmt.setInt(8, t.getStatusId());</span>
+<span class="fc" id="L220">			stmt.setInt(9, t.getTypeId());</span>
+			
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+			{
+<span class="fc" id="L224">				stmt.close();</span>
+<span class="fc" id="L225">				log.info(&quot;reimbursement successfully created!&quot;);</span>
+<span class="fc" id="L226">				return true;//success</span>
 			}
 			else
 			{
-<span class="nc" id="L217">				stmt.close();</span>
-<span class="nc" id="L218">				log.error(&quot;reimbursement was not created&quot;);</span>
-<span class="nc" id="L219">				return false;</span>
+<span class="nc" id="L230">				stmt.close();</span>
+<span class="nc" id="L231">				log.error(&quot;reimbursement was not created&quot;);</span>
+<span class="nc" id="L232">				return false;</span>
 			}
-<span class="nc" id="L221">		} catch (SQLException e) {</span>
-<span class="nc" id="L222">			log.error(&quot;reimbursement was not created. SQL error&quot;);</span>
-<span class="nc" id="L223">			e.printStackTrace();</span>
-<span class="nc" id="L224">			return false;</span>
+<span class="nc" id="L234">		} catch (SQLException e) {</span>
+<span class="nc" id="L235">			log.error(&quot;reimbursement was not created. SQL error&quot;);</span>
+<span class="nc" id="L236">			e.printStackTrace();</span>
+<span class="nc" id="L237">			return false;</span>
 		}
 	}
 	
@@ -229,32 +242,32 @@ import com.caricature.util.DAOInterface;
 		Connection con;
 		
 		try {
-<span class="nc" id="L232">			con = DAOConnection.getInstance().getConnection();</span>
-<span class="nc" id="L233">			PreparedStatement stmt = con.prepareStatement(&quot;update reimbursement set resolved = ?, &quot;</span>
+<span class="fc" id="L245">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="fc" id="L246">			PreparedStatement stmt = con.prepareStatement(&quot;update reimbursement set resolved = ?, &quot;</span>
 					+ &quot;resolver = ?, status_id = ? where reim_id = ?&quot;);
 			
-<span class="nc" id="L236">			stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));</span>
-<span class="nc" id="L237">			stmt.setInt(2, resolverId);</span>
-<span class="nc" id="L238">			stmt.setInt(3, statusId);</span>
-<span class="nc" id="L239">			stmt.setInt(4, reimId);</span>
+<span class="fc" id="L249">			stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));</span>
+<span class="fc" id="L250">			stmt.setInt(2, resolverId);</span>
+<span class="fc" id="L251">			stmt.setInt(3, statusId);</span>
+<span class="fc" id="L252">			stmt.setInt(4, reimId);</span>
 
 			
-<span class="nc bnc" id="L242" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">			if(stmt.executeUpdate() != 0)</span>
 			{
-<span class="nc" id="L244">				stmt.close();</span>
-<span class="nc" id="L245">				log.info(&quot;reimbursement successfully created!&quot;);</span>
-<span class="nc" id="L246">				return true;//success</span>
+<span class="fc" id="L257">				stmt.close();</span>
+<span class="fc" id="L258">				log.info(&quot;reimbursement successfully created!&quot;);</span>
+<span class="fc" id="L259">				return true;//success</span>
 			}
 			else
 			{
-<span class="nc" id="L250">				stmt.close();</span>
-<span class="nc" id="L251">				log.error(&quot;reimbursement was not created&quot;);</span>
-<span class="nc" id="L252">				return false;</span>
+<span class="fc" id="L263">				stmt.close();</span>
+<span class="fc" id="L264">				log.error(&quot;reimbursement was not created&quot;);</span>
+<span class="fc" id="L265">				return false;</span>
 			}
-<span class="nc" id="L254">		} catch (SQLException e) {</span>
-<span class="nc" id="L255">			log.error(&quot;reimbursement was not created. SQL error&quot;);</span>
-<span class="nc" id="L256">			e.printStackTrace();</span>
-<span class="nc" id="L257">			return false;</span>
+<span class="nc" id="L267">		} catch (SQLException e) {</span>
+<span class="nc" id="L268">			log.error(&quot;reimbursement was not created. SQL error&quot;);</span>
+<span class="nc" id="L269">			e.printStackTrace();</span>
+<span class="nc" id="L270">			return false;</span>
 		}
 	}
 
@@ -263,27 +276,27 @@ import com.caricature.util.DAOInterface;
 		Connection con;
 		
 		try {
-<span class="nc" id="L266">			con = DAOConnection.getInstance().getConnection();</span>
-<span class="nc" id="L267">			PreparedStatement stmt = con.prepareStatement(&quot;delete from reimbursement where reim_id = ?&quot;);</span>
+<span class="fc" id="L279">			con = DAOConnection.getInstance().getConnection();</span>
+<span class="fc" id="L280">			PreparedStatement stmt = con.prepareStatement(&quot;delete from reimbursement where reim_id = ?&quot;);</span>
 			
-<span class="nc" id="L269">			stmt.setInt(1, idVal);</span>
+<span class="fc" id="L282">			stmt.setInt(1, idVal);</span>
 			
-<span class="nc bnc" id="L271" title="All 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">			if(stmt.executeUpdate() != 0)</span>
 			{
-<span class="nc" id="L273">				stmt.close();</span>
-<span class="nc" id="L274">				log.info(&quot;reimbursement successfully DELETED!&quot;);</span>
-<span class="nc" id="L275">				return true;</span>
+<span class="fc" id="L286">				stmt.close();</span>
+<span class="fc" id="L287">				log.info(&quot;reimbursement successfully DELETED!&quot;);</span>
+<span class="fc" id="L288">				return true;</span>
 			}
 			else
 			{
-<span class="nc" id="L279">				stmt.close();</span>
-<span class="nc" id="L280">				log.error(&quot;reimbursement was unable to be deleted&quot;);</span>
-<span class="nc" id="L281">				return false;</span>
+<span class="nc" id="L292">				stmt.close();</span>
+<span class="nc" id="L293">				log.error(&quot;reimbursement was unable to be deleted&quot;);</span>
+<span class="nc" id="L294">				return false;</span>
 			}
-<span class="nc" id="L283">		} catch (SQLException e) {</span>
-<span class="nc" id="L284">			log.error(&quot;reimbursement was unable to be deleted. SQL error&quot;);</span>
-<span class="nc" id="L285">			e.printStackTrace();</span>
-<span class="nc" id="L286">			return false;</span>
+<span class="nc" id="L296">		} catch (SQLException e) {</span>
+<span class="nc" id="L297">			log.error(&quot;reimbursement was unable to be deleted. SQL error&quot;);</span>
+<span class="nc" id="L298">			e.printStackTrace();</span>
+<span class="nc" id="L299">			return false;</span>
 		}
 	}
 	

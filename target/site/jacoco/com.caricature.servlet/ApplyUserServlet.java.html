@@ -17,14 +17,14 @@ import com.caricature.repo.UserDAO;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		//req.getRequestDispatcher(&quot;html/login.html&quot;).forward(req, resp);
-<span class="nc" id="L22">	}</span>
+<span class="nc" id="L20">		req.getRequestDispatcher(&quot;html/newUser.html&quot;).forward(req, resp);</span>
+<span class="nc" id="L21">	}</span>
 	
 	//allows for logging in to take place
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
+		
+<span class="nc" id="L27">		req.getRequestDispatcher(&quot;html/newUser.html&quot;).forward(req, resp);</span>
 <span class="nc" id="L28">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

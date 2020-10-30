@@ -172,8 +172,8 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 			rs.close();
 			stmt.close();
 			
-			log.info("successfully retrieved reimburesment data of user: " +
-			reim.getAuthor().getFirstName());
+			//log.info("successfully retrieved reimburesment data of user: " +
+			//reim.getAuthor().getFirstName());
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -206,8 +206,14 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				stmt.setTimestamp(3, null);
 			}
 			stmt.setString(4, t.getDescription());
-			
-			stmt.setBytes(5, t.getRecipt());
+			if(t.getRecipt() != null)
+			{
+				stmt.setBytes(5, t.getRecipt());
+			}
+			else
+			{
+				stmt.setBytes(5, null);
+			}
 			stmt.setInt(6, t.getAuthorId());
 			stmt.setInt(7, t.getResolverId());
 			stmt.setInt(8, t.getStatusId());

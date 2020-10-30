@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,42 +15,47 @@ import com.caricature.model.Reimbursement;
 import com.caricature.repo.ReimburseDAO;
 
 @WebServlet(name = &quot;applyReim&quot;, urlPatterns = {&quot;/applyReim&quot;}, loadOnStartup = 0)
-<span class="nc" id="L17">public class ApplyReimServlet extends HttpServlet {</span>
+<span class="nc" id="L18">public class ApplyReimServlet extends HttpServlet {</span>
 
-<span class="nc" id="L19">	ReimburseDAO rDAO = new ReimburseDAO();</span>
+<span class="nc" id="L20">	ReimburseDAO rDAO = new ReimburseDAO();</span>
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-<span class="nc" id="L23">		int typeId = Integer.parseInt(req.getParameter(&quot;reim-type&quot;));</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">		if(typeId == -1)</span>
+<span class="nc" id="L25">		int typeId = Integer.parseInt(req.getParameter(&quot;reim-type&quot;));</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">		if(typeId == -1)</span>
 		{
-<span class="nc" id="L26">			System.out.println(&quot;None selected&quot;);</span>
+<span class="nc" id="L28">			System.out.println(&quot;None selected&quot;);</span>
 		}
 		
-<span class="nc" id="L29">		String desc = req.getParameter(&quot;reim-desc&quot;);</span>
-<span class="nc" id="L30">		float amount = Integer.parseInt(req.getParameter(&quot;amount&quot;));</span>
-<span class="nc" id="L31">		Timestamp now = new Timestamp(System.currentTimeMillis());</span>
+<span class="nc" id="L31">		String desc = req.getParameter(&quot;reim-desc&quot;);</span>
+<span class="nc" id="L32">		float amount = Integer.parseInt(req.getParameter(&quot;amount&quot;));</span>
 		
-<span class="nc" id="L33">		HttpSession session = req.getSession();</span>
-<span class="nc" id="L34">		int userId = (Integer)session.getAttribute(&quot;userId&quot;);</span>
+<span class="nc" id="L34">		HttpSession session = req.getSession();</span>
+<span class="nc" id="L35">		int userId = (Integer)session.getAttribute(&quot;userId&quot;);</span>
 		
-<span class="nc" id="L36">		Reimbursement reim = new Reimbursement();</span>
-<span class="nc" id="L37">		reim.setAmount(amount);</span>
-<span class="nc" id="L38">		reim.setSubmitDate(now);</span>
-<span class="nc" id="L39">		reim.setDescription(desc);</span>
-<span class="nc" id="L40">		reim.setAuthorId(userId);</span>
-<span class="nc" id="L41">		reim.setResolverId(11);  //this is the temporary &quot;null&quot; user id in the db</span>
-<span class="nc" id="L42">		reim.setStatusId(3);</span>
-<span class="nc" id="L43">		reim.setTypeId(typeId);</span>
+<span class="nc" id="L37">		Reimbursement reim = new Reimbursement();</span>
+<span class="nc" id="L38">		reim.setAmount(amount);</span>
+<span class="nc" id="L39">		reim.setSubmitDate(LocalDateTime.now());</span>
+<span class="nc" id="L40">		reim.setDescription(desc);</span>
+<span class="nc" id="L41">		reim.setAuthorId(userId);</span>
+<span class="nc" id="L42">		reim.setResolverId(11);  //this is the temporary &quot;null&quot; user id in the db</span>
+<span class="nc" id="L43">		reim.setStatusId(3);</span>
+<span class="nc" id="L44">		reim.setTypeId(typeId);</span>
 		
-<span class="nc" id="L45">		rDAO.create(reim);</span>
-		//req.getRequestDispatcher(&quot;./reimburse&quot;).forward(req, resp);
-<span class="nc" id="L47">		resp.sendRedirect(&quot;./reimburse&quot;);</span>
-<span class="nc" id="L48">	}</span>
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="nc" id="L46">		rDAO.create(reim);</span>
 		
-<span class="nc" id="L53">	}</span>
+<span class="nc" id="L48">		String userRole = (String) session.getAttribute(&quot;userRole&quot;);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if(userRole.equals(&quot;Employee&quot;))</span>
+		{
+<span class="nc" id="L51">			req.getRequestDispatcher(&quot;html/reimburseEmp.html&quot;).forward(req, resp);</span>
+		}
+		else
+		{
+<span class="nc" id="L55">			req.getRequestDispatcher(&quot;html/reimburseMan.html&quot;).forward(req, resp);</span>
+		}
+		
+<span class="nc" id="L58">	}</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
