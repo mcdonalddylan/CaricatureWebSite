@@ -46,9 +46,5 @@ public class ApplyReimServlet extends HttpServlet {
 		//req.getRequestDispatcher("./reimburse").forward(req, resp);
 		resp.sendRedirect("./reimburse");
 	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-	}
+
 }

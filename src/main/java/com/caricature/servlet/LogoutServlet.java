@@ -16,28 +16,11 @@ import com.caricature.model.User;
 
 @WebServlet(name = "logout", urlPatterns = {"/logout"}, loadOnStartup = 0)
 public class LogoutServlet extends HttpServlet {
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User tempUser = null;
-		ServletDataController.getInstance().setUser(tempUser);
-		HttpSession session = req.getSession();
-		session.setAttribute("userId", null);
-		session.setAttribute("username", null);
-		session.setAttribute("lastName", null);
-		session.setAttribute("firstName", null);
-		session.setAttribute("userRole", null);
-		session.setAttribute("userEmail", null);
-		
-		req.getRequestDispatcher("html/index.html").forward(req, resp);
-	}
 	
 	//allows for logging in to take place
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		User tempUser = null;
-		ServletDataController.getInstance().setUser(tempUser);
 		HttpSession session = req.getSession();
 		session.setAttribute("userId", null);
 		session.setAttribute("username", null);

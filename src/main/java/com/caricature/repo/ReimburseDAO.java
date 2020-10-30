@@ -206,6 +206,7 @@ public class ReimburseDAO implements DAOInterface<Reimbursement, Integer>{
 				stmt.setTimestamp(3, null);
 			}
 			stmt.setString(4, t.getDescription());
+			
 			stmt.setBytes(5, t.getRecipt());
 			stmt.setInt(6, t.getAuthorId());
 			stmt.setInt(7, t.getResolverId());

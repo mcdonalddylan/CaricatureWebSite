@@ -14,33 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ReimServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReimServlet() {
-    	//idk bro
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		if(req.getSession().getAttribute("userRole").equals("Employee"))
-		{
-			req.getRequestDispatcher("html/reimburseEmp.html").forward(req, resp);
-		}
-		else if (req.getSession().getAttribute("userRole").equals("System"))
-		{
-			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
-		}
-		else if (req.getSession().getAttribute("userRole").equals("Manager"))
-		{
-			req.getRequestDispatcher("html/reimburseMan.html").forward(req, resp);
-		}
-		else
-		{
-			req.getRequestDispatcher("html/index.html").forward(req, resp);
-		}
-    }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

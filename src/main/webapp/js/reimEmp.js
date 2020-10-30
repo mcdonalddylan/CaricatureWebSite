@@ -194,7 +194,7 @@ async function toggleView()
 
         function LoadTable()
         {
-        asyncFetch("http://localhost:8080/Caricature/userReim.json", function(reimbursements)
+        asyncFetch("http://localhost:8081/Caricature/userReim.json", function(reimbursements)
         {
             const tableBod = document.createElement("tbody");
             viewTable.append(tableBod);
@@ -239,7 +239,7 @@ async function toggleView()
                 remBtnTd.append(remBtn);
                 remBtn.onclick = async function ()
                 {
-                    const fetched = await fetch("http://localhost:8080/Caricature/remReim.json?id=" + reim.id,
+                    const fetched = await fetch("http://localhost:8081/Caricature/remReim.json?id=" + reim.id,
                     {method: 'post'});
                     const json = await fetched.text();
                     tableBod.innerHTML = "";

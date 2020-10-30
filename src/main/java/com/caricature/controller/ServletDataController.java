@@ -19,7 +19,6 @@ public class ServletDataController {
 	
 	//basically the session user
 	private static ServletDataController instance = null;
-	private User sessionUser = null;
 	private ReimburseDAO rDAO = new ReimburseDAO();
 	
 	public ServletDataController() {
@@ -32,13 +31,8 @@ public class ServletDataController {
 		
 		return instance;
 	}
-
-	public void setUser(User newUser)
-	{
-		sessionUser = newUser;
-	}
 	
-	public void sendUserData(HttpServletResponse resp, HttpServletRequest req)
+	public boolean sendUserData(HttpServletResponse resp, HttpServletRequest req)
 	{
 		resp.setContentType("text/json");
 		
@@ -60,8 +54,10 @@ public class ServletDataController {
 		{
 			try {
 				resp.getWriter().println(new ObjectMapper().writeValueAsString(user));
+				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 		//if not then output generic user data...
@@ -70,14 +66,16 @@ public class ServletDataController {
 			try {
 				User tempUser = new User();
 				resp.getWriter().println(new ObjectMapper().writeValueAsString(tempUser));
+				return false;
 			} catch (IOException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 		
 	}
 	
-	public void sendUserReimData(HttpServletResponse resp, HttpServletRequest req)
+	public boolean sendUserReimData(HttpServletResponse resp, HttpServletRequest req)
 	{
 		resp.setContentType("text/json");
 		HttpSession session = req.getSession();
@@ -88,8 +86,10 @@ public class ServletDataController {
 		{
 			try {
 				resp.getWriter().println(new ObjectMapper().writeValueAsString(testList));
+				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
 		else
@@ -99,25 +99,29 @@ public class ServletDataController {
 			rList.add(tempReim);
 			try {
 				resp.getWriter().println(new ObjectMapper().writeValueAsString(rList));
+				return false;
 			} catch (IOException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}	
 	}
 	
-	public void sendAllReimData(HttpServletResponse resp)
+	public boolean sendAllReimData(HttpServletResponse resp)
 	{
 		resp.setContentType("text/json");
 
 		List<Reimbursement> rList = rDAO.getAll();
 		try {
 			resp.getWriter().println(new ObjectMapper().writeValueAsString(rList));
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
-	public void rejectReim(HttpServletResponse resp, HttpServletRequest req)
+	public boolean rejectReim(HttpServletResponse resp, HttpServletRequest req)
 	{
 		HttpSession session = req.getSession();
 		int userId = (Integer)session.getAttribute("userId");
@@ -127,11 +131,18 @@ public class ServletDataController {
 		int reimId = Integer.parseInt(reimString);
 		System.out.println("reim reject id: " + reimId);
 		
-		rDAO.update(reimId, userId, 2); //2 is the status id for rejection
+		if(rDAO.update(reimId, userId, 2)) //2 is the status id for rejection
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 		
 	}
 	
-	public void approveReim(HttpServletResponse resp, HttpServletRequest req)
+	public boolean approveReim(HttpServletResponse resp, HttpServletRequest req)
 	{
 		HttpSession session = req.getSession();
 		int userId = (Integer)session.getAttribute("userId");
@@ -141,17 +152,31 @@ public class ServletDataController {
 		int reimId = Integer.parseInt(reimString);
 		System.out.println("reim approved id: " + reimId);
 		
-		rDAO.update(reimId, userId, 1); //1 is the status id for approval
+		if(rDAO.update(reimId, userId, 1)) //1 is the status id for approval
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 		
 	}
 	
-	public void removeReim(HttpServletResponse resp, HttpServletRequest req)
+	public boolean removeReim(HttpServletResponse resp, HttpServletRequest req)
 	{
 		String reimString = req.getParameter("id");
 		int reimId = Integer.parseInt(reimString);
 		System.out.println("reim removed id: " + reimId);
 		
-		rDAO.delete(reimId);
+		if(rDAO.delete(reimId))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 		
 	}
 }

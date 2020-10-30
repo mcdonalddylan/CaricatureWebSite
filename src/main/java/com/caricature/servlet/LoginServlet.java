@@ -33,11 +33,6 @@ public class LoginServlet extends HttpServlet {
 		userDAO = new UserDAO();
 	}
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-	}
-	
 	//allows for logging in to take place
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,8 +61,6 @@ public class LoginServlet extends HttpServlet {
 				User user = userDAO.get(username, newPass);
 				if(user != null)
 				{
-					//user found so you can actually log the user in
-					ServletDataController.getInstance().setUser(user);
 					//ServletDataController.getInstance().sendUserData(resp);
 					HttpSession session = req.getSession();
 					session.setAttribute("userId", user.getId());
@@ -133,7 +126,7 @@ public class LoginServlet extends HttpServlet {
 	
 	//function found at: https://stackoverflow.com/questions/1033947/mysql-md5-and-java-md5-not-equal
 	//meant to encode the hashed password into base 16 to match the password in the db.
-	public static String hexString( byte[] bytes ) 
+	public String hexString( byte[] bytes ) 
 	{
 	  StringBuffer sb = new StringBuffer();
 	  for( int i=0; i<bytes.length; i++ )     

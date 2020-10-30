@@ -15,7 +15,7 @@ import com.caricature.repo.UserDAO;
 public class CreateUserServlet extends HttpServlet{
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		UserDAO uDAO = new UserDAO();
 		String username = req.getParameter("user-entry");
@@ -28,6 +28,7 @@ public class CreateUserServlet extends HttpServlet{
 		{
 			User user = new User(0,username,password,firstName,lastName,email,1);
 			uDAO.create(user);
+			
 		}
 		else
 		{
