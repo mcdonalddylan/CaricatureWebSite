@@ -28,11 +28,12 @@ public class CreateUserServlet extends HttpServlet{
 		{
 			User user = new User(0,username,password,firstName,lastName,email,1);
 			uDAO.create(user);
-			
+			resp.sendRedirect("./");
 		}
 		else
 		{
 			System.out.println("username already exists");
+			resp.sendRedirect("./apply");
 		}
 	}
 }
