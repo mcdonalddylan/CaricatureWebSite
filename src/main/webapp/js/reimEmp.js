@@ -1,5 +1,3 @@
-import ShowNotifications from "./login";
-
 //booleans which allow for toggling 
 let isApply = false;
 let isView = false;
