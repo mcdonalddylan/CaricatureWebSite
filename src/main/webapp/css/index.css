@@ -133,6 +133,11 @@ nav .welc-msg
 	margin-left: 15px;
 }
 
+.pic-box
+{
+	max-width: 70%;
+}
+
 .carousel-indicators
 {
 	color: white;
