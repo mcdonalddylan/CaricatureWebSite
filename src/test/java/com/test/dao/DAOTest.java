@@ -26,7 +26,7 @@ public class DAOTest {
 	private UserDAO uDAO;
 	private LoginServlet lServ;
 	
-	/*
+	
 	//@Before
 	public DAOTest()
 	{
@@ -76,6 +76,6 @@ public class DAOTest {
 		assertTrue(rDAO.delete(21));
 		
 	}
-	*/
+	
 
 }
