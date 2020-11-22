@@ -55,7 +55,7 @@ asyncFetch("http://3.135.241.211:8081/Caricature/user.json", function(importUser
     
         const h3 = document.createElement("h3");
         const homeLink = document.createElement("a");
-        homeLink.textContent = "DreamButts.com";
+        homeLink.textContent = "Caricaturez.com";
         homeLink.style = "color:#000066";
         homeLink.href = "./";
         h3.append(homeLink);
@@ -105,7 +105,7 @@ asyncFetch("http://3.135.241.211:8081/Caricature/user.json", function(importUser
 
         const h3 = document.createElement("h3");
         const homeLink = document.createElement("a");
-        homeLink.textContent = "DreamButts.com";
+        homeLink.textContent = "Caricaturez.com";
         homeLink.style = "color:#000066";
         homeLink.href = "./";
         h3.append(homeLink);
