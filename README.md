@@ -2,41 +2,38 @@
 
 ## Project Description
 
-The Expense Reimbursement System (ERS) will manage the process of reimbursing employees for expenses incurred while on company time. All employees in the company can login and submit requests for reimbursement and view their past tickets and pending requests. Finance managers can log in and view all reimbursement requests and past history for all employees in the company. Finance managers are authorized to approve and deny requests for expense reimbursement.
+The Expense Reimbursement System (ERS) will manage the process of reimbursing employees for expenses incurred while on company time. All employees in this caricature-based company can login and submit requests for reimbursements and view their past tickets and pending requests. Finance managers can log in and view all reimbursement requests and past history for all employees in the company. Finance managers are authorized to approve and deny requests for expense reimbursement.
 
 ## Technologies Used
 
-* Tech 1 - version 1.0
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+* Java - 1.8
+* Javascript
+* HTML
+* CSS
+* Java Servlets
+* JDBC
+* Jackson Databind
+* Log4j
+* Jacoco
+* Jenkins
 
 ## Features
 
-List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* Sleek nav bar with log-in component
+* Can register a new employee user
+* Employee's can apply for a reimbursement
+* Finance manager's can approve or deny employee reimbursements
+* Notification system lets the manager know how many reimbursements are left
+* Employee's can remove their pending reimbursement requests
 
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Finish application system for new employees
+* Add forum for employee's to post their latest work
 
 ## Getting Started
    
-(include git clone command)
-(include all environment setup steps)
-
-> Be sure to include BOTH Windows and Unix command  
-> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
-
-- All the `code` required to get started
-- Images of what it should look like
-
-## Usage
-
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
-t)
-
-## License
-
-This project uses the following license: [<license_name>](<link>).
+1. Open up your terminal and navigate to desired folder to copy the project using ```cd /(location).```
+2. Run: ```git clone https://github.com/mcdonalddylan/CaricatureWebSite.git```
+3. Open up project in your desired Java IDE.
+4. Create a SQL database if you don't already have one, and change the environmental variables of the project to ones that match your database.
+5. Install Apache Tomcat (or equivalent) and run the project through localhost. See Apache documentation for more info.
